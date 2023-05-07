@@ -10,7 +10,7 @@ In the process of processing the array, you can change the data with your own me
 
 #### Install
 ```
-composer require smirnov-o/Mapper
+composer require smirnov-o/mapper
 ```
 #### Base mapping
 
