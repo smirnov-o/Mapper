@@ -7,9 +7,9 @@ namespace SmirnovO\Mapper;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class MapperTestData
+ * Class MapperDataTest
  */
-class MapperTestData extends TestCase
+class MapperDataTest extends TestCase
 {
     /**
      * @return void

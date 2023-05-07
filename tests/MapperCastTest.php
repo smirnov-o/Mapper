@@ -7,9 +7,9 @@ namespace SmirnovO\Mapper;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class MapperTestObject
+ * Class MapperCastTest
  */
-class MapperTestObject extends TestCase
+class MapperCastTest extends TestCase
 {
     /**
      * @return void
@@ -24,15 +24,15 @@ class MapperTestObject extends TestCase
             ]
         ];
 
-        $class = new Test($array);
+        $class = new TestCast($array);
         $this->assertEquals('hello', $class->hi);
-        $this->assertEquals(100, $class->foo);
+        $this->assertEquals(300, $class->foo);
         $this->assertEquals(['a' => 1], $class->bar);
-        $this->assertEquals(1, $class->barr);
+        $this->assertInstanceOf(\stdClass::class, $class->barr);
     }
 }
 
-class Test extends Mapper implements MapperObject
+class TestCast extends Mapper implements MapperObject
 {
     public ?string $hi;
     public int     $foo = 0;
@@ -47,6 +47,24 @@ class Test extends Mapper implements MapperObject
             'bar'   => 'bar',
             'bar.a' => 'barr'
         ];
+    }
+
+    public function getCast(): array
+    {
+        return [
+            'foo'  => 'Sum',
+            'barr' => 'Object'
+        ];
+    }
+
+    public function sum(mixed $data)
+    {
+        return $data + 200;
+    }
+
+    public function Object(mixed $data)
+    {
+        return new \stdClass();
     }
 }
 
