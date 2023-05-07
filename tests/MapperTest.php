@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SmirnovO\Mapper;
 
-
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,11 +14,13 @@ class MapperTest extends TestCase
 {
     /**
      * @return void
+     * @throws Exception
      */
-    public function testIndex(): void
+    public function testGetData(): void
     {
-        $class = new Mapper();
-
-        $this->assertTrue($class->index());
+        $class = $this->createMock(MapperContract::class);
+        $this->assertEquals([], $class->getData());
+        $this->assertEquals([], $class->getMap());
+        $this->assertEquals([], $class->getCast());
     }
 }
