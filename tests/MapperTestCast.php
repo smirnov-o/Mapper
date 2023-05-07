@@ -26,7 +26,7 @@ class MapperTestCast extends TestCase
 
         $class = new Test($array);
         $this->assertEquals('hello', $class->hi);
-        $this->assertEquals(200, $class->foo);
+        $this->assertEquals(300, $class->foo);
         $this->assertEquals(['a' => 1], $class->bar);
         $this->assertInstanceOf(\stdClass::class, $class->barr);
     }
@@ -59,7 +59,7 @@ class Test extends Mapper implements MapperObject
 
     public function sum(mixed $data)
     {
-        return 200;
+        return $data + 200;
     }
 
     public function Object(mixed $data)
