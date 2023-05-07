@@ -20,8 +20,9 @@ class MapperCastTest extends TestCase
             'hello' => 'hello',
             'foo'   => 100,
             'bar'   => [
-                'a' => 1
-            ]
+                'a' => 1,
+            ],
+            'arr'   => 1
         ];
 
         $class = new TestCast($array);
@@ -38,6 +39,7 @@ class TestCast extends Mapper implements MapperObject
     public int     $foo = 0;
     public         $bar;
     public mixed   $barr;
+    public ?array  $array;
 
     public function getMap(): array
     {
@@ -45,7 +47,8 @@ class TestCast extends Mapper implements MapperObject
             'hello' => 'hi',
             'foo'   => 'foo',
             'bar'   => 'bar',
-            'bar.a' => 'barr'
+            'bar.a' => 'barr',
+            'arr' => 'array'
         ];
     }
 
