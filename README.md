@@ -79,12 +79,7 @@ $class->myKey === 1;
 $class->myArray === ['foo' => 3,'bar' => 4];
 $class->foo === 3;
 
-$class->getData() === [
-    'myKey' => 1,
-    'myArray' => ['foo' => 3,'bar' => 4],
-    'foo' => 3,
-    'bar' => 4
-];
+$class->getData() === [];
 ```
 #### Use cast
 
@@ -138,12 +133,7 @@ $class->myKey === 101;
 $class->myArray === 'changeValue';
 $class->foo === 3;
 
-$class->getData() === [
-    'myKey' => 101,
-    'myArray' => 'changeValue',
-    'foo' => 3,
-    'bar' => 4
-];
+$class->getData() === [];
 ```
 
 

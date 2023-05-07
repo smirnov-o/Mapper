@@ -29,6 +29,7 @@ class MapperObjectTest extends TestCase
         $this->assertEquals(100, $class->foo);
         $this->assertEquals(['a' => 1], $class->bar);
         $this->assertEquals(1, $class->barr);
+        $this->assertEquals([], $class->getData());
     }
 }
 
@@ -49,6 +50,3 @@ class ObjectTest extends Mapper implements MapperObject
         ];
     }
 }
-
-
-

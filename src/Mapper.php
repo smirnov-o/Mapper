@@ -62,6 +62,7 @@ abstract class Mapper implements MapperContract
     private function parse(array $data): void
     {
         $value = null;
+        $prop = false;
 
         foreach ($this->getMap() as $key => $map) {
             if ($key && is_string($key)) {
@@ -78,10 +79,12 @@ abstract class Mapper implements MapperContract
 
             if ($value) {
                 if (is_subclass_of($this, MapperObject::class)) {
-                    $this->setVariable($map, $value);
+                    $prop = $this->setVariable($map, $value);
                 }
 
-                $this->data[$map] = $value;
+                if (!$prop) {
+                    $this->data[$map] = $value;
+                }
             }
         }
     }
@@ -89,20 +92,21 @@ abstract class Mapper implements MapperContract
     /**
      * @param string $key
      * @param mixed $value
-     * @return void
+     * @return bool
      */
-    private function setVariable(string $key, mixed $value): void
+    private function setVariable(string $key, mixed $value): bool
     {
         $ref = new ReflectionClass($this);
         $prop = null;
+        $result = true;
 
         try {
             $prop = $ref->getProperty($key);
         } catch (ReflectionException) {
+            $result = false;
         }
 
         if ($prop) {
-            $result = true;
             $type = $prop->getType()?->getName();
 
             if ($type && in_array($type, self::TYPE, true)) {
@@ -113,6 +117,8 @@ abstract class Mapper implements MapperContract
                 $this->{$key} = $value;
             }
         }
+
+        return $result;
     }
 
     /**
