@@ -1,6 +1,17 @@
 {
   "name": "smirnov-o/mapper",
+  "version": "0.1",
+  "description": "PHP Mapping",
   "license": "MIT",
+  "keywords": [
+    "php",
+    "object",
+    "class",
+    "mapper"
+  ],
+  "support": {
+    "issues": "https://github.com/smirnov-o/Mapper/issues"
+  },
   "authors": [
     {
       "name": "SmirnovO",
