@@ -20,7 +20,7 @@ interface MapperContract
     public function getData(): array;
 
     /**
-     * @return array
+     * @return array<string, string>
      */
     public function getCast(): array;
 }

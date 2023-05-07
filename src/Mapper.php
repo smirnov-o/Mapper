@@ -9,7 +9,9 @@ use ReflectionException;
 
 use function array_reduce;
 use function explode;
+use function in_array;
 use function is_string;
+use function method_exists;
 use function settype;
 
 /**
@@ -21,6 +23,11 @@ abstract class Mapper implements MapperContract
      * @var array<string, mixed>
      */
     private array $data = [];
+
+    /**
+     * @var array
+     */
+    private const TYPE = ['boolean', 'bool', 'integer', 'int', 'float', 'double', 'string', 'array', 'object', 'null'];
 
     /**
      * @param array $data
@@ -61,6 +68,14 @@ abstract class Mapper implements MapperContract
                 $value = $this->getDataByKey($key, $data);
             }
 
+            if ($this->getCast()[$map]) {
+                $method = $this->getCast()[$map];
+
+                if (method_exists($this, $method)) {
+                    $value = $this->{$method}($value);
+                }
+            }
+
             if ($value) {
                 if (is_subclass_of($this, MapperObject::class)) {
                     $this->setVariable($map, $value);
@@ -78,7 +93,7 @@ abstract class Mapper implements MapperContract
      */
     private function setVariable(string $key, mixed $value): void
     {
-        $ref = new ReflectionClass(static::class);
+        $ref = new ReflectionClass($this);
         $prop = null;
 
         try {
@@ -90,7 +105,7 @@ abstract class Mapper implements MapperContract
             $result = true;
             $type = $prop->getType()?->getName();
 
-            if ($type) {
+            if ($type && in_array($type, self::TYPE, true)) {
                 $result = settype($value, $type);
             }
 
