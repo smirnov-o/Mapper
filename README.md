@@ -86,6 +86,65 @@ $class->getData() === [
     'bar' => 4
 ];
 ```
+#### Use cast
+
+```php
+class Map extends Mapper implements MapperObject
+{
+    public ?string $myKey;
+    public ?mixed $myArray;
+    public ?int $foo;
+
+    public function getMap()
+    {
+        return [
+            'foo' => 'myKey',
+            'abc' => 'myArray',
+            'abc.foo' => 'foo',
+            'abc.bar' => 'bar'
+        ];
+    }
+    
+    public function getCast()
+    {
+        return [
+            'myKey' => 'myCast',
+            'myArray' => 'mySomeCast'
+        ];
+    }
+    
+    public function myCast(mixed $data)
+    {
+        return $data + 100;
+    }
+    
+    public function mySomeCast(mixed $data)
+    {
+        return 'changeValue';
+    }
+}
+
+$array = [
+            'foo' => 1,
+            'abc' => [
+                    'foo' => 3,
+                    'bar' => 4
+                ]       
+        ];
+
+$class = new Map($array);
+
+$class->myKey === 101;
+$class->myArray === 'changeValue';
+$class->foo === 3;
+
+$class->getData() === [
+    'myKey' => 101,
+    'myArray' => 'changeValue',
+    'foo' => 3,
+    'bar' => 4
+];
+```
 
 
 
