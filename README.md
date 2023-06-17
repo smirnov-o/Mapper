@@ -135,8 +135,25 @@ $class->foo === 3;
 
 $class->getData() === [];
 ```
+#### Static Call
 
+```php
+$array = [
+    'a' => '1', 
+    'b' => 100
+    ];
+    
+$maps = [
+    'a' => 'a', 
+    'b' => 'b'
+    ];
 
+$array = MapperStatic::getArray($array, $maps)->getData();
+$array['a'] === 1;
+$array['b'] === 100;
 
-
+$object = MapperStatic::getObject($array, $maps);
+$object->a === 1;
+$object->b === 1000;
+```
 
