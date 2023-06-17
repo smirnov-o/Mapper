@@ -69,12 +69,10 @@ abstract class Mapper implements MapperContract
                 $value = $this->getDataByKey($key, $data);
             }
 
-            if ($this->getCast()[$map]) {
-                $method = $this->getCast()[$map];
+            $method = $this->getCast()[$map] ?? null;
 
-                if (method_exists($this, $method)) {
-                    $value = $this->{$method}($value);
-                }
+            if ($method && method_exists($this, $method)) {
+                $value = $this->{$method}($value);
             }
 
             if ($value) {
