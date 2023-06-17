@@ -141,4 +141,38 @@ class MapperTest extends TestCase
         $this->assertEquals('3Hello', $class->bba);
         $this->assertEquals([], $class->getData());
     }
+
+    /**
+     * @return void
+     */
+    public function testType(): void
+    {
+        $array = [
+            'a' => '1',
+            'b' => 'Hello',
+            'c' => 100
+        ];
+
+        $class = new class ($array) extends SmirnovO\Mapper\Mapper implements MapperObject {
+            public int   $a;
+            public int   $b;
+            public int   $c;
+            public array $e;
+
+            public function getMap(): array
+            {
+                return [
+                    'a' => 'a',
+                    'b' => 'b',
+                    'c' => 'c',
+                    'e' => 'b'
+                ];
+            }
+        };
+
+        $this->assertEquals(1, $class->a);
+        $this->assertEquals(0, $class->b);
+        $this->assertEquals('100', $class->c);
+        $this->assertEquals(100, $class->c);
+    }
 }
