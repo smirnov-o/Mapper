@@ -48,10 +48,10 @@ class MapperTest extends TestCase
             public function getMap(): array
             {
                 return [
-                    'a'     => 'aa',
-                    'b.b'   => 'bb',
-                    'b.a'   => 'ba',
-                    'b.b.a' => 'bba'
+                    'aa'  => 'a',
+                    'bb'  => 'b.b',
+                    'ba'  => 'b.a',
+                    'bba' => 'b.b.a',
                 ];
             }
         };
@@ -72,17 +72,17 @@ class MapperTest extends TestCase
         $class = new class ($this->array) extends SmirnovO\Mapper\Mapper implements MapperObject {
             public ?int    $aa;
             public mixed   $bb;
-            public $ba;
+            public         $ba;
             public ?string $bba;
 
 
             public function getMap(): array
             {
                 return [
-                    'a'     => 'aa',
-                    'b.b'   => 'bb',
-                    'b.a'   => 'ba',
-                    'b.b.a' => 'bba'
+                    'aa'  => 'a',
+                    'bb'  => 'b.b',
+                    'ba'  => 'b.a',
+                    'bba' => 'b.b.a',
                 ];
             }
         };
@@ -102,17 +102,17 @@ class MapperTest extends TestCase
         $class = new class ($this->array) extends SmirnovO\Mapper\Mapper implements MapperObject {
             public ?int    $aa;
             public mixed   $bb;
-            public $ba;
+            public         $ba;
             public ?string $bba;
 
 
             public function getMap(): array
             {
                 return [
-                    'a'     => 'aa',
-                    'b.b'   => 'bb',
-                    'b.a'   => 'ba',
-                    'b.b.a' => 'bba'
+                    'aa'  => 'a',
+                    'bb'  => 'b.b',
+                    'ba'  => 'b.a',
+                    'bba' => 'b.b.a',
                 ];
             }
 

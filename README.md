@@ -20,10 +20,10 @@ class Map extends Mapper
     public function getMap()
     {
         return [
-            'foo' => 'myKey',
-            'abc' => 'myArray',
-            'abc.foo' => 'foo',
-            'abc.bar' => 'bar'
+            'myKey' => 'foo',
+            'myArray' => 'abc',
+            'foo' => 'abc.foo',
+            'bar' => 'abc.bar'
         ];
     }
 }
@@ -57,10 +57,10 @@ class Map extends Mapper implements MapperObject
     public function getMap()
     {
         return [
-            'foo' => 'myKey',
-            'abc' => 'myArray',
-            'abc.foo' => 'foo',
-            'abc.bar' => 'bar'
+            'myKey' => 'foo',
+            'myArray' => 'abc',
+            'foo' => 'abc.foo',
+            'bar' => 'abc.bar'
         ];
     }
 }
@@ -93,10 +93,10 @@ class Map extends Mapper implements MapperObject
     public function getMap()
     {
         return [
-            'foo' => 'myKey',
-            'abc' => 'myArray',
-            'abc.foo' => 'foo',
-            'abc.bar' => 'bar'
+            'myKey' => 'foo',
+            'myArray' => 'abc',
+            'foo' => 'abc.foo',
+            'bar' => 'abc.bar'
         ];
     }
     

@@ -64,7 +64,7 @@ abstract class Mapper implements MapperContract
         $value = null;
         $prop = false;
 
-        foreach ($this->getMap() as $key => $map) {
+        foreach ($this->getMap() as $map => $key) {
             if ($key && is_string($key)) {
                 $value = $this->getDataByKey($key, $data);
             }
