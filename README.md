@@ -20,10 +20,10 @@ class Map extends Mapper
     public function getMap()
     {
         return [
-            'myKey' => 'foo',
+            'myKey'   => 'foo',
             'myArray' => 'abc',
-            'foo' => 'abc.foo',
-            'bar' => 'abc.bar'
+            'foo'     => 'abc.foo',
+            'bar'     => 'abc.bar'
         ];
     }
 }
@@ -39,10 +39,13 @@ $array = [
 $class = new Map($array);
 
 $class->getData() === [
-    'myKey' => 1,
-    'myArray' => ['foo' => 3,'bar' => 4],
-    'foo' => 3,
-    'bar' => 4
+    'myKey'   => 1,
+    'myArray' => [
+            'foo' => 3,
+            'bar' => 4
+                ],
+    'foo'     => 3,
+    'bar'     => 4
 ];
 ```
 #### Set property class
@@ -57,10 +60,10 @@ class Map extends Mapper implements MapperObject
     public function getMap()
     {
         return [
-            'myKey' => 'foo',
+            'myKey'   => 'foo',
             'myArray' => 'abc',
-            'foo' => 'abc.foo',
-            'bar' => 'abc.bar'
+            'foo'     => 'abc.foo',
+            'bar'     => 'abc.bar'
         ];
     }
 }
@@ -75,9 +78,12 @@ $array = [
 
 $class = new Map($array);
 
-$class->myKey === 1;
-$class->myArray === ['foo' => 3,'bar' => 4];
-$class->foo === 3;
+$class->myKey   === 1;
+$class->myArray === [
+            'foo' => 3,
+            'bar' => 4
+            ];
+$class->foo     === 3;
 
 $class->getData() === [];
 ```
@@ -93,17 +99,17 @@ class Map extends Mapper implements MapperObject
     public function getMap()
     {
         return [
-            'myKey' => 'foo',
+            'myKey'   => 'foo',
             'myArray' => 'abc',
-            'foo' => 'abc.foo',
-            'bar' => 'abc.bar'
+            'foo'     => 'abc.foo',
+            'bar'     => 'abc.bar'
         ];
     }
     
     public function getCast()
     {
         return [
-            'myKey' => 'myCast',
+            'myKey'   => 'myCast',
             'myArray' => 'mySomeCast'
         ];
     }
@@ -129,10 +135,9 @@ $array = [
 
 $class = new Map($array);
 
-$class->myKey === 101;
-$class->myArray === 'changeValue';
-$class->foo === 3;
-
+$class->myKey     === 101;
+$class->myArray   === 'changeValue';
+$class->foo       === 3;
 $class->getData() === [];
 ```
 #### Static Call
