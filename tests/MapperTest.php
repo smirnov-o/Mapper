@@ -5,6 +5,7 @@ declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use SmirnovO\Mapper\Mapper;
 use SmirnovO\Mapper\MapperObject;
+use SmirnovO\Mapper\MapperStatic;
 
 /**
  * Class MapperTest
@@ -174,5 +175,58 @@ class MapperTest extends TestCase
         $this->assertEquals(0, $class->b);
         $this->assertEquals('100', $class->c);
         $this->assertEquals(100, $class->c);
+    }
+
+    /**
+     * @return void
+     */
+    public function testInit(): void
+    {
+        $array = [
+            'a' => '1',
+            'b' => 'Hello',
+            'c' => 100
+        ];
+
+        $class = new class () extends SmirnovO\Mapper\Mapper implements MapperObject {
+            public int   $a;
+            public int   $b;
+            public int   $c;
+            public array $e;
+
+            public function getMap(): array
+            {
+                return [
+                    'a' => 'a',
+                    'b' => 'b',
+                    'c' => 'c',
+                    'e' => 'b'
+                ];
+            }
+        };
+        $class->init($array);
+
+        $this->assertEquals(1, $class->a);
+        $this->assertEquals(0, $class->b);
+        $this->assertEquals('100', $class->c);
+        $this->assertEquals(100, $class->c);
+    }
+
+    /**
+     * @return void
+     */
+    public function testStatic(): void
+    {
+        $array = ['a' => '1', 'b' => 100];
+        $maps = ['a' => 'a', 'b' => 'b'];
+        $data = MapperStatic::getArray($array, $maps)->getData();
+
+        $this->assertEquals(1, $data['a']);
+        $this->assertEquals(100, $data['b']);
+
+        $data = MapperStatic::getObject($array, $maps);
+
+        $this->assertEquals(1, $data->a);
+        $this->assertEquals(100, $data->b);
     }
 }

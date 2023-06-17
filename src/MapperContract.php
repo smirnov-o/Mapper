@@ -10,6 +10,12 @@ namespace SmirnovO\Mapper;
 interface MapperContract
 {
     /**
+     * @param array $data
+     * @return $this
+     */
+    public function init(array $data): static;
+
+    /**
      * @return array<string, string>
      */
     public function getMap(): array;

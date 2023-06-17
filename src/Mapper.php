@@ -24,6 +24,8 @@ abstract class Mapper implements MapperContract
      */
     private array $data = [];
 
+    protected array $map;
+
     /**
      * @var array
      */
@@ -31,12 +33,26 @@ abstract class Mapper implements MapperContract
 
     /**
      * @param array $data
+     * @param array $map
      */
-    public function __construct(array $data = [])
+    public function __construct(array $data = [], array $map = [])
     {
+        $this->map = $map;
+
         if ($data !== []) {
             $this->parse($data);
         }
+    }
+
+    /**
+     * @param array $data
+     * @return $this
+     */
+    public function init(array $data): static
+    {
+        $this->parse($data);
+
+        return $this;
     }
 
     /**
@@ -63,8 +79,9 @@ abstract class Mapper implements MapperContract
     {
         $value = null;
         $prop = false;
+        $maps = $this->getMap() !== [] ? $this->getMap() : $this->map;
 
-        foreach ($this->getMap() as $map => $key) {
+        foreach ($maps as $map => $key) {
             if ($key && is_string($key)) {
                 $value = $this->getDataByKey($key, $data);
             }
