@@ -1,6 +1,7 @@
 # PHP Mapper
 
 ![Packagist Version (custom server)](https://img.shields.io/packagist/v/smirnov-o/Mapper)
+![Packagist License (custom server)](https://img.shields.io/packagist/l/smirnov-o/Mapper)
 
 #### RU
 
