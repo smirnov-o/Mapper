@@ -161,4 +161,22 @@ $object = MapperStatic::getObject($array, $maps);
 $object->a === 1;
 $object->b === 1000;
 ```
+#### Select data
 
+RU: Возможность выбора данных из нескольких полей.
+Поля перечисляются через `||`. После нахождения первого, поиск прекращается.
+
+EN: Ability to select data from multiple fields.
+Fields are listed with `||`. After finding the first one, the search stops.
+
+```php
+    public function getMap()
+    {
+        return [
+            'myKey'   => 'foo',
+            'myArray' => 'abc',
+            'foo'     => 'abc.foo||abc.foo||abc.foo',
+            'bar'     => 'abc.bar||abc.bar||abc.bar'
+        ];
+    }
+```
