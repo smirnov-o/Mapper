@@ -143,10 +143,21 @@ abstract class Mapper implements MapperContract
      */
     private function getDataByKey(string $key, array $data): mixed
     {
-        $array = explode('.', $key);
+        $or = explode('||', $key);
+        $value = null;
 
-        return array_reduce($array, static function ($item, $key) {
-            return $item[$key] ?? null;
-        }, $data);
+        foreach ($or as $item) {
+            $array = explode('.', $item);
+
+            $value = array_reduce($array, static function ($val, $key) {
+                return $val[$key] ?? null;
+            }, $data);
+
+            if ($value) {
+                break;
+            }
+        }
+
+        return $value;
     }
 }

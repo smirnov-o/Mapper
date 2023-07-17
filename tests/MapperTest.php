@@ -16,11 +16,17 @@ class MapperTest extends TestCase
      * @var array
      */
     private array $array = [
-        'a' => 1,
-        'b' => [
+        'a'   => 1,
+        'b'   => [
             'a' => 1,
             'b' => [
                 'a' => '3',
+            ]
+        ],
+        'ddd' => 'Hello',
+        'dd'  => [
+            [
+                'name' => 'Yes'
             ]
         ]
     ];
@@ -189,10 +195,9 @@ class MapperTest extends TestCase
         ];
 
         $class = new class () extends SmirnovO\Mapper\Mapper implements MapperObject {
-            public int   $a;
-            public int   $b;
-            public int   $c;
-            public array $e;
+            public int $a;
+            public int $b;
+            public int $c;
 
             public function getMap(): array
             {
@@ -200,7 +205,6 @@ class MapperTest extends TestCase
                     'a' => 'a',
                     'b' => 'b',
                     'c' => 'c',
-                    'e' => 'b'
                 ];
             }
         };
@@ -228,5 +232,33 @@ class MapperTest extends TestCase
 
         $this->assertEquals(1, $data->a);
         $this->assertEquals(100, $data->b);
+    }
+
+    public function testSomeFiled(): void
+    {
+        $class = new class ($this->array) extends SmirnovO\Mapper\Mapper implements MapperObject {
+            public int    $f;
+            public int    $g;
+            public string $c;
+            public string $h;
+            public string $y;
+
+            public function getMap(): array
+            {
+                return [
+                    'f' => 'a',
+                    'c' => 'b.b.a||b.a',
+                    'g' => 'a.c.c||b.a',
+                    'h' => 'ddd||dd.0.name',
+                    'y' => 'ddd.0.name||dd.0.name'
+                ];
+            }
+        };
+
+        $this->assertEquals(1, $class->f);
+        $this->assertEquals('3', $class->c);
+        $this->assertEquals(1, $class->g);
+        $this->assertEquals('Hello', $class->h);
+        $this->assertEquals('Yes', $class->y);
     }
 }
