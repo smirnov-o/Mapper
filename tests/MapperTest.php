@@ -261,4 +261,66 @@ class MapperTest extends TestCase
         $this->assertEquals('Hello', $class->h);
         $this->assertEquals('Yes', $class->y);
     }
+
+    public function testisEmpty(): void
+    {
+        $class = new class ($this->array) extends SmirnovO\Mapper\Mapper implements MapperObject {
+            public int    $f;
+            public int    $g;
+            public array  $c = [];
+            public bool   $h = false;
+            public string $y;
+
+            public function getMap(): array
+            {
+                return [
+                    'f' => 'a.dd',
+                    'c' => 'b.b.a.d||b.a.d',
+                    'g' => 'a.c.c.2||b.a.f',
+                    'h' => 'ddd.ff||dd.0.name.f',
+                    'y' => 'ddd.0.name.gg||dd.0.name.fg'
+                ];
+            }
+        };
+
+        $this->assertFalse($class->isNotEmpty());
+
+        $class = new class ($this->array) extends SmirnovO\Mapper\Mapper implements MapperObject {
+            public int    $f;
+
+            public function getMap(): array
+            {
+                return [
+                    'f' => 'a',
+                ];
+            }
+        };
+
+        $this->assertTrue($class->isNotEmpty());
+
+        $class = new class ($this->array) extends SmirnovO\Mapper\Mapper {
+            public function getMap(): array
+            {
+                return [
+                    'aa'  => 'a',
+                ];
+            }
+        };
+
+        $this->assertEquals(['aa'  => 1], $class->getData());
+        $this->assertTrue($class->isNotEmpty());
+
+
+        $class = new class ($this->array) extends SmirnovO\Mapper\Mapper {
+            public function getMap(): array
+            {
+                return [
+                    'aa'  => 'a.2.2',
+                ];
+            }
+        };
+
+        $this->assertEquals([], $class->getData());
+        $this->assertFalse($class->isNotEmpty());
+    }
 }

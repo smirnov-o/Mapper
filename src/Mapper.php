@@ -24,6 +24,14 @@ abstract class Mapper implements MapperContract
      */
     private array $data = [];
 
+    /**
+     * @var mixed
+     */
+    private mixed $empty = null;
+
+    /**
+     * @var array
+     */
     protected array $map;
 
     /**
@@ -72,6 +80,14 @@ abstract class Mapper implements MapperContract
     }
 
     /**
+     * @return bool
+     */
+    public function isNotEmpty(): bool
+    {
+        return (bool)$this->empty;
+    }
+
+    /**
      * @param array $data
      * @return void
      */
@@ -93,6 +109,8 @@ abstract class Mapper implements MapperContract
             }
 
             if ($value) {
+                $this->empty = $value;
+
                 if (is_subclass_of($this, MapperObject::class)) {
                     $prop = $this->setVariable($map, $value);
                 }

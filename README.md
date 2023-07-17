@@ -1,17 +1,58 @@
 # PHP Mapper
 
 #### RU
-Маппинг массива любой вложенности в новый массив или свойства класса. 
+
+Маппинг массива любой вложенности в новый массив или свойства класса.
 В процессе обработки массива можно изменять данные своими методами.
 
 #### EN
+
 Mapping an array of any nesting into a new array or class properties.
 In the process of processing the array, you can change the data with your own methods.
 
+#### Methods
+
+RU: Если необходимо, чтобы конструктор класс был пустой, то нужно использовать этот метод.<br>
+EN: If it is necessary for the class constructor to be empty, then you need to use this method.
+
+```php
+public function init(array $data): static
+```
+
+RU: Возвращает маппинг полей. Обязательно.<br>
+RN: Returns mapping of fields. Necessarily.
+
+```php
+public function getMap(): array;
+```
+
+RU: Возвращает массив готовых данных. В случае со свойствами класса, будет пустой.<br> 
+EN: Returns an array of ready data. In the case of class properties, it will be empty.
+
+```php
+public function getData(): array;
+```
+
+RU: Возвращает список методов применяемых для изменения поля.<br>
+EN: Returns a list of methods used to change the field.
+
+```php
+public function getCast(): array;
+```
+
+RU: В процессе маппинга не было совпадений не найдено.<br>
+EN: No matches were found during the mapping process.
+
+```php
+public function isNotEmpty(): bool;
+```
+
 #### Install
+
 ```
 composer require smirnov-o/mapper
 ```
+
 #### Base mapping
 
 ```php
@@ -48,6 +89,7 @@ $class->getData() === [
     'bar'     => 4
 ];
 ```
+
 #### Set property class
 
 ```php
@@ -87,6 +129,7 @@ $class->foo     === 3;
 
 $class->getData() === [];
 ```
+
 #### Use cast
 
 ```php
@@ -140,6 +183,7 @@ $class->myArray   === 'changeValue';
 $class->foo       === 3;
 $class->getData() === [];
 ```
+
 #### Static Call
 
 ```php
@@ -161,6 +205,7 @@ $object = MapperStatic::getObject($array, $maps);
 $object->a === 1;
 $object->b === 1000;
 ```
+
 #### Select data
 
 RU: Возможность выбора данных из нескольких полей.
