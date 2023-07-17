@@ -1,5 +1,7 @@
 # PHP Mapper
 
+![Packagist Version (custom server)](https://img.shields.io/packagist/v/smirnov-o/Mapper)
+
 #### RU
 
 Маппинг массива любой вложенности в новый массив или свойства класса.
