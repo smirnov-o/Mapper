@@ -27,9 +27,7 @@ class DtoTest extends TestCase
      */
     public function testSetData(): void
     {
-        $dto = new DtoExample([
-            'test' => 'test'
-        ]);
+        $dto = new DtoExample(['test' => 'test']);
 
         $this->assertEquals('test', $dto->test);
     }
@@ -40,9 +38,7 @@ class DtoTest extends TestCase
      */
     public function testWrongType(): void
     {
-        $dto = new DtoExample([
-            'int' => 100
-        ]);
+        $dto = new DtoExample(['int' => 100]);
 
         $this->assertEquals('100', $dto->str);
         $this->assertNull($dto->array);
@@ -54,9 +50,7 @@ class DtoTest extends TestCase
      */
     public function testCast(): void
     {
-        $dto = new DtoExample([
-            'int' => 100
-        ]);
+        $dto = new DtoExample(['int' => 100]);
 
         $this->assertEquals(200, $dto->cast);
         $this->assertEquals('string', $dto->cast1);
@@ -68,13 +62,33 @@ class DtoTest extends TestCase
      */
     public function testCastDefault(): void
     {
-        $dto = new DtoExample([
-            'int' => 100
-        ]);
+        $dto = new DtoExample(['int' => 100]);
 
         $this->assertEquals('string', $dto->castDefStr);
         $this->assertEquals(100, $dto->castDefInt);
-        $this->assertEquals([1,2,3], $dto->castDefArray);
-        $this->assertEquals([1,2,3], $dto->castDefArray1);
+        $this->assertEquals([1, 2, 3], $dto->castDefArray);
+        $this->assertEquals([1, 2, 3], $dto->castDefArray1);
+    }
+
+    /**
+     * @covers \SmirnovO\Mapper\Example\DtoExample::toArray
+     * @return void
+     */
+    public function testToArray(): void
+    {
+        $dto = new DtoExample(['int' => 100]);
+
+        $this->assertIsArray($dto->toArray());
+        $this->assertEquals([
+            'int'           => 100,
+            'str'           => '100',
+            'array'         => null,
+            'cast'          => 200,
+            'cast1'         => 'string',
+            'castDefStr'    => 'string',
+            'castDefInt'    => 100,
+            'castDefArray'  => [1, 2, 3],
+            'castDefArray1' => [1, 2, 3],
+        ], $dto->toArray());
     }
 }
