@@ -61,4 +61,20 @@ class DtoTest extends TestCase
         $this->assertEquals(200, $dto->cast);
         $this->assertEquals('string', $dto->cast1);
     }
+
+    /**
+     * @covers \SmirnovO\Mapper\Example\DtoExample::parse
+     * @return void
+     */
+    public function testCastDefault(): void
+    {
+        $dto = new DtoExample([
+            'int' => 100
+        ]);
+
+        $this->assertEquals('string', $dto->castDefStr);
+        $this->assertEquals(100, $dto->castDefInt);
+        $this->assertEquals([1,2,3], $dto->castDefArray);
+        $this->assertEquals([1,2,3], $dto->castDefArray1);
+    }
 }

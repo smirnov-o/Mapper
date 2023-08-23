@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace SmirnovO\Mapper;
 
 use ReflectionClass;
+use SmirnovO\Mapper\Attribute\CastDefault;
 use SmirnovO\Mapper\Attribute\CastMethod;
 use SmirnovO\Mapper\Attribute\ElementName;
 use SmirnovO\Mapper\Contracts\DtoContract;
+
+use Throwable;
 
 use function array_reduce;
 use function explode;
@@ -65,6 +68,10 @@ readonly class Dto implements DtoContract
                     $value = $this->getDataByKey($attribute->getArguments(), $data);
                 }
 
+                if ($attribute->getName() === CastDefault::class) {
+                    $value = $attribute->getArguments()[0];
+                }
+
                 if ($value && $attribute->getName() === CastMethod::class) {
                     $cast = $attribute->getArguments()[0];
 
@@ -77,7 +84,7 @@ readonly class Dto implements DtoContract
             if ($value) {
                 try {
                     $prop->setValue($this, $value);
-                } catch (\Throwable) {
+                } catch (Throwable) {
                     $prop->setValue($this, null);
                 }
             }
