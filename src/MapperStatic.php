@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace SmirnovO\Mapper;
 
+use SmirnovO\Mapper\Contracts\MapperObject;
+
 /**
  * Class MapperStatic
  */

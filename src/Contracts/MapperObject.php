@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SmirnovO\Mapper;
+namespace SmirnovO\Mapper\Contracts;
 
 /**
  * Interface MapperObject

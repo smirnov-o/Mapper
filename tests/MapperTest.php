@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use SmirnovO\Mapper\Mapper;
-use SmirnovO\Mapper\MapperObject;
+use SmirnovO\Mapper\Contracts\MapperObject;
 use SmirnovO\Mapper\MapperStatic;
 
 /**
@@ -32,6 +32,7 @@ class MapperTest extends TestCase
     ];
 
     /**
+     * @covers \SmirnovO\Mapper\Mapper::getData
      * @return void
      */
     public function testClearData(): void
@@ -47,6 +48,7 @@ class MapperTest extends TestCase
     }
 
     /**
+     * @covers \SmirnovO\Mapper\Mapper::getData
      * @return void
      */
     public function testData(): void
@@ -72,6 +74,7 @@ class MapperTest extends TestCase
     }
 
     /**
+     * @covers \SmirnovO\Mapper\Mapper::getMap
      * @return void
      */
     public function testProperty(): void
@@ -102,6 +105,7 @@ class MapperTest extends TestCase
     }
 
     /**
+     * @covers \SmirnovO\Mapper\Mapper::getCast
      * @return void
      */
     public function testCast(): void
@@ -150,6 +154,7 @@ class MapperTest extends TestCase
     }
 
     /**
+     * @covers \SmirnovO\Mapper\Mapper::getData
      * @return void
      */
     public function testType(): void
@@ -184,6 +189,7 @@ class MapperTest extends TestCase
     }
 
     /**
+     * @covers \SmirnovO\Mapper\Mapper::init
      * @return void
      */
     public function testInit(): void
@@ -217,6 +223,8 @@ class MapperTest extends TestCase
     }
 
     /**
+     * @covers \SmirnovO\Mapper\MapperStatic::getArray
+     * @covers \SmirnovO\Mapper\MapperStatic::getObject
      * @return void
      */
     public function testStatic(): void
@@ -234,6 +242,10 @@ class MapperTest extends TestCase
         $this->assertEquals(100, $data->b);
     }
 
+    /**
+     * @covers \SmirnovO\Mapper\Mapper::parse
+     * @return void
+     */
     public function testSomeFiled(): void
     {
         $class = new class ($this->array) extends SmirnovO\Mapper\Mapper implements MapperObject {
@@ -262,6 +274,10 @@ class MapperTest extends TestCase
         $this->assertEquals('Yes', $class->y);
     }
 
+    /**
+     * @covers \SmirnovO\Mapper\Mapper::isNotEmpty
+     * @return void
+     */
     public function testisEmpty(): void
     {
         $class = new class ($this->array) extends SmirnovO\Mapper\Mapper implements MapperObject {

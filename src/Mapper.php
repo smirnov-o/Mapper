@@ -6,6 +6,8 @@ namespace SmirnovO\Mapper;
 
 use ReflectionClass;
 use ReflectionException;
+use SmirnovO\Mapper\Contracts\MapperContract;
+use SmirnovO\Mapper\Contracts\MapperObject;
 
 use function array_reduce;
 use function explode;
@@ -20,6 +22,11 @@ use function settype;
 abstract class Mapper implements MapperContract
 {
     /**
+     * @var array
+     */
+    public const TYPE = ['boolean', 'bool', 'integer', 'int', 'float', 'double', 'string', 'array', 'object', 'null'];
+
+    /**
      * @var array<string, mixed>
      */
     private array $data = [];
@@ -33,11 +40,6 @@ abstract class Mapper implements MapperContract
      * @var array
      */
     protected array $map;
-
-    /**
-     * @var array
-     */
-    private const TYPE = ['boolean', 'bool', 'integer', 'int', 'float', 'double', 'string', 'array', 'object', 'null'];
 
     /**
      * @param array $data
