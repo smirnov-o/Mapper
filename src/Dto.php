@@ -19,7 +19,7 @@ use function method_exists;
 /**
  * Class Dto
  */
-readonly class Dto implements DtoContract
+abstract class Dto implements DtoContract
 {
     /**
      * @param array $data

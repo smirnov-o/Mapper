@@ -12,7 +12,7 @@ use SmirnovO\Mapper\Dto;
 /**
  * Class DtoExample01
  */
-readonly class DtoExample extends Dto
+class DtoExample extends Dto
 {
     /**
      * @var string
