@@ -1,5 +1,4 @@
 # PHP Mapper and Dto on attributes
-№
 
 ![Packagist Version (custom server)](https://img.shields.io/packagist/v/smirnov-o/Mapper)
 ![Packagist License (custom server)](https://img.shields.io/packagist/l/smirnov-o/Mapper)
@@ -12,7 +11,7 @@
 
 Пример Dto в [Example](src%2FExample).
 
-[Документация]([README_RU.md](README_RU.md))
+[Документация](README_RU.md)
 
 #### EN
 
@@ -22,4 +21,4 @@
 
 An example of a Dto in [Example](src%2FExample).
 
-[Documentation]([README_EN.md](README_EN.md))
+[Documentation](README_EN.md)
