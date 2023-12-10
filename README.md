@@ -22,3 +22,14 @@
 An example of a Dto in [Example](src%2FExample).
 
 [Documentation](README_EN.md)
+
+### Установка / Install
+```php
+"require": {
+    "php": "^8.2"
+  },
+```
+
+```
+composer require smirnov-o/mapper
+```
