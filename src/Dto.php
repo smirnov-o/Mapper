@@ -9,7 +9,6 @@ use SmirnovO\Mapper\Attribute\CastDefault;
 use SmirnovO\Mapper\Attribute\CastMethod;
 use SmirnovO\Mapper\Attribute\ElementName;
 use SmirnovO\Mapper\Contracts\DtoContract;
-
 use Throwable;
 
 use function array_reduce;
@@ -33,6 +32,7 @@ abstract class Dto implements DtoContract
 
     /**
      * @param array $data
+     *
      * @return $this
      */
     public function init(array $data): static
@@ -51,7 +51,18 @@ abstract class Dto implements DtoContract
     }
 
     /**
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function has(string $key): bool
+    {
+        return isset($this->{$key});
+    }
+
+    /**
      * @param array $data
+     *
      * @return void
      */
     private function parse(array $data): void
@@ -69,7 +80,7 @@ abstract class Dto implements DtoContract
                 }
 
                 if ($attribute->getName() === CastDefault::class) {
-                    $value = $attribute->getArguments()[0];
+                    $value = $value ?? $attribute->getArguments()[0];
                 }
 
                 if ($value && $attribute->getName() === CastMethod::class) {
@@ -85,7 +96,6 @@ abstract class Dto implements DtoContract
                 try {
                     $prop->setValue($this, $value);
                 } catch (Throwable) {
-                    $prop->setValue($this, null);
                 }
             }
         }
@@ -94,6 +104,7 @@ abstract class Dto implements DtoContract
     /**
      * @param array $args
      * @param array $data
+     *
      * @return mixed
      */
     private function getDataByKey(array $args, array $data): mixed

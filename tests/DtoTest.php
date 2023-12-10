@@ -41,7 +41,7 @@ class DtoTest extends TestCase
         $dto = new DtoExample(['int' => 100]);
 
         $this->assertEquals('100', $dto->str);
-        $this->assertNull($dto->array);
+        $this->assertFalse(isset($dto->array));
     }
 
     /**
@@ -82,7 +82,6 @@ class DtoTest extends TestCase
         $this->assertEquals([
             'int'           => 100,
             'str'           => '100',
-            'array'         => null,
             'cast'          => 200,
             'cast1'         => 'string',
             'castDefStr'    => 'string',
@@ -90,5 +89,16 @@ class DtoTest extends TestCase
             'castDefArray'  => [1, 2, 3],
             'castDefArray1' => [1, 2, 3],
         ], $dto->toArray());
+    }
+
+    /**
+     * @covers \SmirnovO\Mapper\Example\DtoExample::has
+     * @return void
+     */
+    public function testHas(): void
+    {
+        $dto = new DtoExample(['int' => 100]);
+        $this->assertTrue($dto->has('int'));
+        $this->assertFalse($dto->has('dto'));
     }
 }
