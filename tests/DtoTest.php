@@ -71,6 +71,17 @@ class DtoTest extends TestCase
     }
 
     /**
+     * @covers \SmirnovO\Mapper\Example\DtoExample::parse
+     * @return void
+     */
+    public function testParseOR(): void
+    {
+        $dto = new DtoExample(['int' => 100, 'test' => 'test', 'a' => ['b' => 'foo']]);
+
+        $this->assertEquals('foo', $dto->foo);
+    }
+
+    /**
      * @covers \SmirnovO\Mapper\Example\DtoExample::toArray
      * @return void
      */

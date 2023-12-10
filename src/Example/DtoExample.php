@@ -12,7 +12,7 @@ use SmirnovO\Mapper\Dto;
 /**
  * Class DtoExample01
  */
-class DtoExample extends Dto
+final class DtoExample extends Dto
 {
     /**
      * @var string
@@ -78,6 +78,12 @@ class DtoExample extends Dto
      */
     #[CastDefault([1,2,3])]
     public array $castDefArray1;
+
+    /**
+     * @var string
+     */
+    #[ElementName('bar||a.b')]
+    public string $foo;
 
     /**
      * @param int $val

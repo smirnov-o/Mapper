@@ -3,55 +3,28 @@
 ![Packagist Version (custom server)](https://img.shields.io/packagist/v/smirnov-o/Mapper)
 ![Packagist License (custom server)](https://img.shields.io/packagist/l/smirnov-o/Mapper)
 
-#### RU
-
-Маппинг массива любой вложенности в новый массив или свойства класса.
-В процессе обработки массива можно изменять данные своими методами.
-
-#### EN
-
-Mapping an array of any nesting into a new array or class properties.
-In the process of processing the array, you can change the data with your own methods.
-
-#### Methods
-
-RU: Если необходимо, чтобы конструктор класс был пустой, то нужно использовать этот метод.<br>
-EN: If it is necessary for the class constructor to be empty, then you need to use this method.
-
+### Методы маппера
+Если необходимо, чтобы конструктор класс был пустой, то нужно использовать этот метод.<br>
 ```php
 public function init(array $data): static
 ```
-
-RU: Возвращает маппинг полей. Обязательно.<br>
-RN: Returns mapping of fields. Necessarily.
-
+Возвращает маппинг полей. Обязательно.<br>
 ```php
 public function getMap(): array;
 ```
-
-RU: Возвращает массив готовых данных. В случае со свойствами класса, будет пустой.<br> 
-EN: Returns an array of ready data. In the case of class properties, it will be empty.
-
+Возвращает массив готовых данных. В случае со свойствами класса, будет пустой.<br>
 ```php
 public function getData(): array;
 ```
-
-RU: Возвращает список методов применяемых для изменения поля.<br>
-EN: Returns a list of methods used to change the field.
-
+Возвращает список методов применяемых для изменения поля.<br>
 ```php
 public function getCast(): array;
 ```
-
-RU: В процессе маппинга не было совпадений не найдено.<br>
-EN: No matches were found during the mapping process.
-
+В процессе маппинга не было совпадений не найдено.<br>
 ```php
 public function isNotEmpty(): bool;
 ```
-
 #### Install
-
 ```
 composer require smirnov-o/mapper
 ```
@@ -92,9 +65,7 @@ $class->getData() === [
     'bar'     => 4
 ];
 ```
-
 #### Set property class
-
 ```php
 class Map extends Mapper implements MapperObject
 {
@@ -132,9 +103,7 @@ $class->foo     === 3;
 
 $class->getData() === [];
 ```
-
 #### Use cast
-
 ```php
 class Map extends Mapper implements MapperObject
 {
@@ -185,10 +154,8 @@ $class->myKey     === 101;
 $class->myArray   === 'changeValue';
 $class->foo       === 3;
 $class->getData() === [];
-```
-
+````
 #### Static Call
-
 ```php
 $array = [
     'a' => '1', 
@@ -208,14 +175,9 @@ $object = MapperStatic::getObject($array, $maps);
 $object->a === 1;
 $object->b === 1000;
 ```
-
 #### Select data
-
-RU: Возможность выбора данных из нескольких полей.
+Возможность выбора данных из нескольких полей.
 Поля перечисляются через `||`. После нахождения первого, поиск прекращается.
-
-EN: Ability to select data from multiple fields.
-Fields are listed with `||`. After finding the first one, the search stops.
 
 ```php
     public function getMap()
@@ -227,4 +189,47 @@ Fields are listed with `||`. After finding the first one, the search stops.
             'bar'     => 'abc.bar||abc.bar||abc.bar'
         ];
     }
+```
+### Dto
+```php
+final class DtoExample extends Dto {
+    /**
+     * @var string
+     */
+    #[ElementName('test')]
+    public int $test;
+    
+    /**
+     * @var string
+     */
+    #[ElementName('bar||a.b')]
+    public int $foo;
+    
+    /**
+     * @var int
+     */
+    #[ElementName('int'), CastMethod('cast')]
+    public int $cast;
+    
+     /**
+     * @var int
+     */
+    #[ElementName('hello'), CastDefault(100)]
+    public int $castDefInt;
+    
+    /**
+     * @param int $val
+     * @return int
+     */
+    public function cast(int $val): int
+    {
+        return $val + 100;
+    }
+}
+
+$dto = new DtoExample(['int' => 100, 'test' => 'test','a' => ['b' => 'foo']]);
+$dto->test = 200;
+$dto->cast = 200;
+$dto->castDefInt = 100;
+$dto->foo = 'foo';
 ```
