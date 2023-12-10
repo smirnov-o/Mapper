@@ -82,7 +82,7 @@ class MapperTest extends TestCase
         $class = new class ($this->array) extends SmirnovO\Mapper\Mapper implements MapperObject {
             public ?int    $aa;
             public mixed   $bb;
-            public         $ba;
+            public $ba;
             public ?string $bba;
 
 
@@ -113,7 +113,7 @@ class MapperTest extends TestCase
         $class = new class ($this->array) extends SmirnovO\Mapper\Mapper implements MapperObject {
             public ?int    $aa;
             public mixed   $bb;
-            public         $ba;
+            public $ba;
             public ?string $bba;
 
 

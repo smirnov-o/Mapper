@@ -228,8 +228,25 @@ final class DtoExample extends Dto {
 }
 
 $dto = new DtoExample(['int' => 100, 'test' => 'test','a' => ['b' => 'foo']]);
+or
+$dto = new DtoExample();
+$dto->init(['int' => 100, 'test' => 'test','a' => ['b' => 'foo']])
+
 $dto->test = 200;
 $dto->cast = 200;
 $dto->castDefInt = 100;
 $dto->foo = 'foo';
+$dto->taArrya() = [
+            'test' => test
+            'int' => 100
+            'str' => 100
+            'cast' => 200
+            'cast1' => string
+            'castDefStr' => string
+            'castDefInt' => 100
+            'castDefArray' => [1,2,3]
+            'castDefArray1' => [1,2,3]
+            'foo' => foo
+        ];
+$dto->has('dto') === false;
 ```
