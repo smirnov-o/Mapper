@@ -27,7 +27,7 @@ An example of a Dto in [Example](src%2FExample).
 ```php
 "require": {
     "php": "^8.2"
-  },
+  }
 ```
 
 ```
