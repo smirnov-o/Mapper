@@ -1,6 +1,6 @@
 {
   "name": "smirnov-o/mapper",
-  "version": "1.4",
+  "version": "1.4.1",
   "description": "PHP Mapping and ReadOnly Dto with Attributes",
   "license": "MIT",
   "keywords": [
@@ -36,6 +36,11 @@
   "autoload-dev": {
     "psr-4": {
       "SmirnovO\\Mapper\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "infection/extension-installer": true
     }
   }
 }

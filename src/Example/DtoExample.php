@@ -70,13 +70,13 @@ final class DtoExample extends Dto
     /**
      * @var array
      */
-    #[ElementName('hello'), CastDefault([1,2,3])]
+    #[ElementName('hello'), CastDefault([1, 2, 3])]
     public array $castDefArray;
 
     /**
      * @var array
      */
-    #[CastDefault([1,2,3])]
+    #[CastDefault([1, 2, 3])]
     public array $castDefArray1;
 
     /**
@@ -86,7 +86,30 @@ final class DtoExample extends Dto
     public string $foo;
 
     /**
+     * @var bool
+     */
+    #[ElementName('bool')]
+    public bool $bool;
+
+    /**
+     * @var bool
+     */
+    #[ElementName('bool1'), CastMethod('castBool')]
+    public bool $bool1;
+
+    /**
+     * @param bool $val
+     *
+     * @return bool
+     */
+    public function castBool(bool $val): bool
+    {
+        return !$val;
+    }
+
+    /**
      * @param int $val
+     *
      * @return int
      */
     public function cast(int $val): int

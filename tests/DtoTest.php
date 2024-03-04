@@ -36,6 +36,32 @@ class DtoTest extends TestCase
      * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
      */
+    public function testSetBoolData(): void
+    {
+        $dto = new DtoExample(['bool' => true]);
+        $this->assertTrue($dto->bool);
+
+        $dto = new DtoExample(['bool' => false]);
+        $this->assertFalse($dto->bool);
+    }
+
+    /**
+     * @covers \SmirnovO\Mapper\Example\DtoExample::parse
+     * @return void
+     */
+    public function testCastBoolData(): void
+    {
+        $dto = new DtoExample(['bool1' => true]);
+        $this->assertFalse($dto->bool1);
+
+        $dto = new DtoExample(['bool1' => false]);
+        $this->assertTrue($dto->bool1);
+    }
+
+    /**
+     * @covers \SmirnovO\Mapper\Example\DtoExample::parse
+     * @return void
+     */
     public function testWrongType(): void
     {
         $dto = new DtoExample(['int' => 100]);

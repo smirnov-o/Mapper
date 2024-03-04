@@ -83,7 +83,7 @@ abstract class Dto implements DtoContract
                     $value = $value ?? $attribute->getArguments()[0];
                 }
 
-                if ($value && $attribute->getName() === CastMethod::class) {
+                if (isset($value) && $attribute->getName() === CastMethod::class) {
                     $cast = $attribute->getArguments()[0];
 
                     if (method_exists($this, $cast)) {
@@ -92,7 +92,7 @@ abstract class Dto implements DtoContract
                 }
             }
 
-            if ($value) {
+            if (isset($value)) {
                 try {
                     $prop->setValue($this, $value);
                 } catch (Throwable) {
