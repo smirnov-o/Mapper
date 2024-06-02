@@ -248,3 +248,13 @@ $dto->taArrya() = [
         ];
 $dto->has('dto') === false;
 ```
+### Dto Methods
+#### Method getErrors
+Returns parsing errors.
+Example:
+```php
+[
+    errors => 'Cannot assign array to property SmirnovO\Mapper\Example\DtoErrors::$errors of type string',
+    errors1 => 'Cannot assign array to property SmirnovO\Mapper\Example\DtoErrors::$errors1 of type string'
+]
+```
