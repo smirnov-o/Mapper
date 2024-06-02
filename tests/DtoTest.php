@@ -138,4 +138,14 @@ class DtoTest extends TestCase
         $this->assertTrue($dto->has('int'));
         $this->assertFalse($dto->has('dto'));
     }
+
+    /**
+     * @covers \SmirnovO\Mapper\Example\DtoExample::getErrors
+     * @return void
+     */
+    public function testError(): void
+    {
+        $dto = new DtoExample(['testError' => 100]);
+        $this->assertFalse($dto->has('testError'));
+    }
 }

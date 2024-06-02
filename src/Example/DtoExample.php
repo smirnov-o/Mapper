@@ -38,7 +38,7 @@ final class DtoExample extends Dto
     public ?string $str;
 
     /**
-     * @var array|null
+     * @var array<string, mixed>|null
      */
     #[ElementName('int')]
     public ?array $array;
@@ -68,13 +68,13 @@ final class DtoExample extends Dto
     public int $castDefInt;
 
     /**
-     * @var array
+     * @var array<int>
      */
     #[ElementName('hello'), CastDefault([1, 2, 3])]
     public array $castDefArray;
 
     /**
-     * @var array
+     * @var array<int>
      */
     #[CastDefault([1, 2, 3])]
     public array $castDefArray1;
@@ -96,6 +96,12 @@ final class DtoExample extends Dto
      */
     #[ElementName('bool1'), CastMethod('castBool')]
     public bool $bool1;
+
+    /**
+     * @var array<string, string>
+     */
+    #[ElementName('testError')]
+    public array $testError;
 
     /**
      * @param bool $val

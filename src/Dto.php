@@ -21,7 +21,12 @@ use function method_exists;
 abstract class Dto implements DtoContract
 {
     /**
-     * @param array $data
+     * @var array<string, string>
+     */
+    private array $errors = [];
+
+    /**
+     * @param array<string, mixed> $data
      */
     public function __construct(array $data = [])
     {
@@ -31,7 +36,7 @@ abstract class Dto implements DtoContract
     }
 
     /**
-     * @param array $data
+     * @param array<string, mixed> $data
      *
      * @return $this
      */
@@ -43,7 +48,7 @@ abstract class Dto implements DtoContract
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {
@@ -61,7 +66,7 @@ abstract class Dto implements DtoContract
     }
 
     /**
-     * @param array $data
+     * @param array<string, mixed> $data
      *
      * @return void
      */
@@ -95,15 +100,16 @@ abstract class Dto implements DtoContract
             if (isset($value)) {
                 try {
                     $prop->setValue($this, $value);
-                } catch (Throwable) {
+                } catch (Throwable $exception) {
+                    $this->errors[$prop->name] = $exception->getMessage();
                 }
             }
         }
     }
 
     /**
-     * @param array $args
-     * @param array $data
+     * @param array<int, string> $args
+     * @param array<string, mixed> $data
      *
      * @return mixed
      */
@@ -125,5 +131,13 @@ abstract class Dto implements DtoContract
         }
 
         return $value;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
     }
 }

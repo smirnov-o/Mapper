@@ -22,7 +22,7 @@ use function settype;
 abstract class Mapper implements MapperContract
 {
     /**
-     * @var array
+     * @var array<string>
      */
     public const TYPE = ['boolean', 'bool', 'integer', 'int', 'float', 'double', 'string', 'array', 'object', 'null'];
 
