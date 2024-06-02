@@ -144,5 +144,6 @@ class DtoTest extends TestCase
     {
         $dto = new DtoExample(['testError' => 100]);
         $this->assertFalse($dto->has('testError'));
+        $this->assertNotEquals([], $dto->getErrors());
     }
 }
