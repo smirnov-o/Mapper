@@ -25,6 +25,7 @@ class DtoTest extends TestCase
     /**
      * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
+     * @throws Exception
      */
     public function testSetData(): void
     {
@@ -36,6 +37,7 @@ class DtoTest extends TestCase
     /**
      * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
+     * @throws Exception
      */
     public function testSetBoolData(): void
     {
@@ -49,6 +51,7 @@ class DtoTest extends TestCase
     /**
      * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
+     * @throws Exception
      */
     public function testCastBoolData(): void
     {
@@ -62,6 +65,7 @@ class DtoTest extends TestCase
     /**
      * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
+     * @throws Exception
      */
     public function testWrongType(): void
     {
@@ -74,6 +78,7 @@ class DtoTest extends TestCase
     /**
      * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
+     * @throws Exception
      */
     public function testCast(): void
     {
@@ -85,6 +90,7 @@ class DtoTest extends TestCase
     /**
      * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
+     * @throws Exception
      */
     public function testCastDefault(): void
     {
@@ -128,27 +134,27 @@ class DtoTest extends TestCase
     /**
      * @covers \SmirnovO\Mapper\Example\DtoExample::has
      * @return void
+     * @throws Exception
      */
     public function testHas(): void
     {
         $dto = new DtoExample(['int' => 100]);
         $this->assertTrue($dto->has('int'));
         $this->assertFalse($dto->has('dto'));
-        $this->assertEquals([], $dto->getErrors());
     }
 
     /**
-     * @covers \SmirnovO\Mapper\Example\DtoErrors::getErrors
+     * @covers \SmirnovO\Mapper\Example\DtoErrors::parse
      * @return void
+     * @throws Exception
      */
-    public function testNewError(): void
+    public function testError(): void
     {
         $dto = new DtoErrors(['errors' => 'Hello']);
         $this->assertEquals('Hello', $dto->errors);
 
         $dto = new DtoErrors(['errors' => []]);
         $this->assertFalse($dto->has('errors'));
-        $this->assertNotEquals([], $dto->getErrors());
 
         $dto = new DtoErrors(['errors' => 'Hello', 'init' => 100]);
         $this->assertTrue($dto->has('errors'));

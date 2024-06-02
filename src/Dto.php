@@ -13,18 +13,15 @@ use Throwable;
 
 use function array_reduce;
 use function explode;
+use function md5;
 use function method_exists;
+use function spl_object_id;
 
 /**
  * Class Dto
  */
 abstract class Dto implements DtoContract
 {
-    /**
-     * @var array<string, string>
-     */
-    private array $errors = [];
-
     /**
      * @param array<string, mixed> $data
      */
@@ -52,7 +49,7 @@ abstract class Dto implements DtoContract
      */
     public function toArray(): array
     {
-        unset($this->errors);
+        unset($this->{$this->getHash()});
 
         return (array)$this;
     }
@@ -103,7 +100,7 @@ abstract class Dto implements DtoContract
                 try {
                     $prop->setValue($this, $value);
                 } catch (Throwable $exception) {
-                    $this->errors[$prop->name] = $exception->getMessage();
+                    $this->{$this->getHash()}[$prop->getName()] = $exception->getMessage();
                 }
             }
         }
@@ -140,6 +137,14 @@ abstract class Dto implements DtoContract
      */
     public function getErrors(): array
     {
-        return $this->errors;
+        return $this->{$this->getHash()};
+    }
+
+    /**
+     * @return string
+     */
+    private function getHash(): string
+    {
+        return md5((string)spl_object_id($this));
     }
 }
