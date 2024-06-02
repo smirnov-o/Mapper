@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use SmirnovO\Mapper\Example\DtoErrors;
 use SmirnovO\Mapper\Example\DtoExample;
 
 /**
@@ -137,13 +138,19 @@ class DtoTest extends TestCase
     }
 
     /**
-     * @covers \SmirnovO\Mapper\Example\DtoExample::getErrors
+     * @covers \SmirnovO\Mapper\Example\DtoErrors::getErrors
      * @return void
      */
-    public function testError(): void
+    public function testNewError(): void
     {
-        $dto = new DtoExample(['testError' => 100]);
-        $this->assertFalse($dto->has('testError'));
+        $dto = new DtoErrors(['errors' => 'Hello']);
+        $this->assertEquals('Hello', $dto->errors);
+
+        $dto = new DtoErrors(['errors' => []]);
+        $this->assertFalse($dto->has('errors'));
         $this->assertNotEquals([], $dto->getErrors());
+
+        $dto = new DtoErrors(['errors' => 'Hello', 'init' => 100]);
+        $this->assertTrue($dto->has('errors'));
     }
 }

@@ -92,12 +92,6 @@ final class DtoExample extends Dto
     public bool $bool1;
 
     /**
-     * @var array<string, string>
-     */
-    #[ElementName('testError')]
-    public array $testError;
-
-    /**
      * @param bool $val
      *
      * @return bool
