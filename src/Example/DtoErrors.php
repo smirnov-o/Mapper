@@ -18,6 +18,12 @@ final class DtoErrors extends Dto
     public string $errors;
 
     /**
+     * @var string
+     */
+    #[ElementName('errors1')]
+    public string $errors1;
+
+    /**
      * @var int
      */
     #[ElementName('init')]

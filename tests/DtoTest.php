@@ -153,10 +153,14 @@ class DtoTest extends TestCase
         $dto = new DtoErrors(['errors' => 'Hello']);
         $this->assertEquals('Hello', $dto->errors);
 
-        $dto = new DtoErrors(['errors' => []]);
-        $this->assertFalse($dto->has('errors'));
-
         $dto = new DtoErrors(['errors' => 'Hello', 'init' => 100]);
         $this->assertTrue($dto->has('errors'));
+
+        $dto = new DtoErrors(['errors' => [], 'errors1' => []]);
+        $this->assertFalse($dto->has('errors'));
+        $this->assertFalse($dto->has('errors1'));
+        $this->assertNotEquals([], $dto->getErrors());
+        $this->assertCount(2, $dto->getErrors());
+        $this->assertEquals([], $dto->toArray());
     }
 }
