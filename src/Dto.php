@@ -52,6 +52,8 @@ abstract class Dto implements DtoContract
      */
     public function toArray(): array
     {
+        unset($this->errors);
+
         return (array)$this;
     }
 

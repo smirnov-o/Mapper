@@ -32,27 +32,21 @@ final class DtoExample extends Dto
     public int $int;
 
     /**
-     * @var string|null
+     * @var int
      */
-    #[ElementName('int')]
-    public ?string $str;
+    #[ElementName('int1'), CastMethod('cast')]
+    public int $cast;
 
     /**
      * @var array<string, mixed>|null
      */
-    #[ElementName('int')]
+    #[ElementName('int2')]
     public ?array $array;
-
-    /**
-     * @var int
-     */
-    #[ElementName('int'), CastMethod('cast')]
-    public int $cast;
 
     /**
      * @var string
      */
-    #[ElementName('int'), CastMethod('cast1')]
+    #[ElementName('int4'), CastMethod('cast1')]
     public string $cast1;
 
     /**
