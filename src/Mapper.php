@@ -37,13 +37,13 @@ abstract class Mapper implements MapperContract
     private mixed $empty = null;
 
     /**
-     * @var array
+     * @var array<string>
      */
     protected array $map;
 
     /**
-     * @param array $data
-     * @param array $map
+     * @param array<string, mixed> $data
+     * @param array<string> $map
      */
     public function __construct(array $data = [], array $map = [])
     {
@@ -55,7 +55,7 @@ abstract class Mapper implements MapperContract
     }
 
     /**
-     * @param array $data
+     * @param array<string, mixed> $data
      * @return $this
      */
     public function init(array $data): static
@@ -74,7 +74,7 @@ abstract class Mapper implements MapperContract
     }
 
     /**
-     * @return array
+     * @return array<string>
      */
     public function getCast(): array
     {
@@ -90,7 +90,7 @@ abstract class Mapper implements MapperContract
     }
 
     /**
-     * @param array $data
+     * @param array<string, mixed> $data
      * @return void
      */
     private function parse(array $data): void
@@ -142,6 +142,7 @@ abstract class Mapper implements MapperContract
         }
 
         if ($prop) {
+            // @phpstan-ignore-next-line
             $type = $prop->getType()?->getName();
 
             if ($type && in_array($type, self::TYPE, true)) {
@@ -158,7 +159,7 @@ abstract class Mapper implements MapperContract
 
     /**
      * @param string $key
-     * @param array $data
+     * @param array<string, mixed> $data
      * @return mixed
      */
     private function getDataByKey(string $key, array $data): mixed

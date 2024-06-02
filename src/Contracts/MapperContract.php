@@ -10,7 +10,7 @@ namespace SmirnovO\Mapper\Contracts;
 interface MapperContract
 {
     /**
-     * @param array $data
+     * @param array<string, mixed> $data
      * @return $this
      */
     public function init(array $data): static;

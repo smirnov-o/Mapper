@@ -10,13 +10,13 @@ namespace SmirnovO\Mapper\Contracts;
 interface DtoContract
 {
     /**
-     * @param array $data
+     * @param array<string, mixed> $data
      * @return $this
      */
     public function init(array $data): static;
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array;
 }

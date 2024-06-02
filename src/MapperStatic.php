@@ -12,8 +12,8 @@ use SmirnovO\Mapper\Contracts\MapperObject;
 final class MapperStatic
 {
     /**
-     * @param array $source
-     * @param array $map
+     * @param array<string, mixed> $source
+     * @param array<string> $map
      * @return Mapper
      */
     public static function getArray(array $source, array $map): Mapper
@@ -27,8 +27,8 @@ final class MapperStatic
     }
 
     /**
-     * @param array $source
-     * @param array $map
+     * @param array<string, mixed> $source
+     * @param array<string> $map
      * @return Mapper
      */
     public static function getObject(array $source, array $map): Mapper

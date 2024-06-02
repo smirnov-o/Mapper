@@ -13,7 +13,7 @@ use SmirnovO\Mapper\MapperStatic;
 class MapperTest extends TestCase
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private array $array = [
         'a'   => 1,
