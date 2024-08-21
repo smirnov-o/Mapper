@@ -191,6 +191,11 @@ $object->b === 1000;
     }
 ```
 ### Dto
+Порядок работы методов
+1. ElementName - нахождение значения по имени
+2. CastDefault - если значения нет, то устанавливается указанное в CastDefault
+3. CastMethodDefault - если значения нет, то значение инициализируется методом из CastMethodDefault
+4. CastMethod - изменяет значение методом из CastMethod
 ```php
 final class DtoExample extends Dto {
     /**
@@ -218,12 +223,26 @@ final class DtoExample extends Dto {
     public int $castDefInt;
     
     /**
+     * @var string
+     */
+    #[ElementName('castMethod'), CastMethodDefault('castMethod')]
+    public string $castMethod;
+    
+    /**
      * @param int $val
      * @return int
      */
     public function cast(int $val): int
     {
         return $val + 100;
+    }
+    
+    /**
+     * @return string
+     */
+    public function castMethod(): string
+    {
+        return 'vasa';
     }
 }
 
@@ -246,7 +265,8 @@ $dto->taArrya() = [
             'castDefInt' => 100
             'castDefArray' => [1,2,3]
             'castDefArray1' => [1,2,3]
-            'foo' => foo
+            'foo' => foo,
+            'castMethod' = 'vasa'
         ];
 $dto->has('dto') === false;
 ```

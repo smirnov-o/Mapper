@@ -172,6 +172,9 @@ class DtoTest extends TestCase
     public function testCastMethod(): void
     {
         $dto = new DtoExample(['castMethod' => 'hello']);
+        $this->assertEquals('hello', $dto->castMethod);
+
+        $dto = new DtoExample([]);
         $this->assertEquals('vasa', $dto->castMethod);
     }
 }

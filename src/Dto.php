@@ -28,9 +28,7 @@ abstract class Dto implements DtoContract
      */
     public function __construct(array $data = [])
     {
-        if ($data !== []) {
-            $this->parse($data);
-        }
+        $this->parse($data);
     }
 
     /**
@@ -88,19 +86,19 @@ abstract class Dto implements DtoContract
                     $value = $value ?? $attribute->getArguments()[0];
                 }
 
+                if (!isset($value) && ($attribute->getName() === CastMethodDefault::class)) {
+                    $cast = $attribute->getArguments()[0];
+
+                    if (method_exists($this, $cast)) {
+                        $value = $this->{$cast}();
+                    }
+                }
+
                 if (isset($value) && $attribute->getName() === CastMethod::class) {
                     $cast = $attribute->getArguments()[0];
 
                     if (method_exists($this, $cast)) {
                         $value = $this->{$cast}($value);
-                    }
-                }
-
-                if ($attribute->getName() === CastMethodDefault::class) {
-                    $cast = $attribute->getArguments()[0];
-
-                    if (method_exists($this, $cast)) {
-                        $value = $this->{$cast}($value ?? null);
                     }
                 }
             }
