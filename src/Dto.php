@@ -7,6 +7,7 @@ namespace SmirnovO\Mapper;
 use ReflectionClass;
 use SmirnovO\Mapper\Attribute\CastDefault;
 use SmirnovO\Mapper\Attribute\CastMethod;
+use SmirnovO\Mapper\Attribute\CastMethodDefault;
 use SmirnovO\Mapper\Attribute\ElementName;
 use SmirnovO\Mapper\Contracts\DtoContract;
 use Throwable;
@@ -92,6 +93,14 @@ abstract class Dto implements DtoContract
 
                     if (method_exists($this, $cast)) {
                         $value = $this->{$cast}($value);
+                    }
+                }
+
+                if ($attribute->getName() === CastMethodDefault::class) {
+                    $cast = $attribute->getArguments()[0];
+
+                    if (method_exists($this, $cast)) {
+                        $value = $this->{$cast}($value ?? null);
                     }
                 }
             }
