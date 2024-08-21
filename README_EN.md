@@ -189,6 +189,11 @@ Fields are listed with `||`. After finding the first one, the search stops.
     }
 ```
 ### Dto
+Methods work order
+1. ElementName - find value by name
+2. CastDefault - if there is no value, then the value specified in CastDefault is set
+3. CastMethodDefault - if there is no value, then the value is initialized by the method from CastMethodDefault
+4. CastMethod - changes the value by the method from CastMethod
 ```php
 final class DtoExample extends Dto {
     /**
@@ -216,12 +221,26 @@ final class DtoExample extends Dto {
     public int $castDefInt;
     
     /**
+     * @var string
+     */
+    #[ElementName('castMethod'), CastMethodDefault('castMethod')]
+    public string $castMethod;
+    
+    /**
      * @param int $val
      * @return int
      */
     public function cast(int $val): int
     {
         return $val + 100;
+    }
+    
+    /**
+     * @return string
+     */
+    public function castMethod(): string
+    {
+        return 'vasa';
     }
 }
 

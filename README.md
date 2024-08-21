@@ -6,7 +6,7 @@
 #### RU
 
 * Маппинг массива любой вложенности в новый массив или свойства класса.
-* Dto с использованием атрибутов (ElementName, CastMethod, CastDefault). 
+* Dto с использованием атрибутов (ElementName, CastMethod, CastDefault, CastMethodDefault). 
 * В процессе обработки массива можно изменять данные своими методами.
 
 Пример Dto в [Example](src%2FExample).
