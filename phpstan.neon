@@ -1,6 +1,5 @@
 parameters:
-	level: 9
-	paths:
-		- src
-	excludePaths:
-	    - test
+    paths:
+        - src/
+
+    level: 10

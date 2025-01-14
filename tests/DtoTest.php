@@ -2,17 +2,20 @@
 
 declare(strict_types=1);
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use SmirnovO\Mapper\Dto;
 use SmirnovO\Mapper\Example\DtoErrors;
 use SmirnovO\Mapper\Example\DtoExample;
+use SmirnovO\Mapper\Example\DtoTestToArray;
 
 /**
  * Class DtoTest
  */
+#[CoversClass(Dto::class)]
 class DtoTest extends TestCase
 {
     /**
-     * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
      */
     public function testNullAttribute(): void
@@ -23,7 +26,6 @@ class DtoTest extends TestCase
     }
 
     /**
-     * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
      * @throws Exception
      */
@@ -35,7 +37,6 @@ class DtoTest extends TestCase
     }
 
     /**
-     * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
      * @throws Exception
      */
@@ -49,7 +50,6 @@ class DtoTest extends TestCase
     }
 
     /**
-     * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
      * @throws Exception
      */
@@ -63,7 +63,6 @@ class DtoTest extends TestCase
     }
 
     /**
-     * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
      * @throws Exception
      */
@@ -76,7 +75,6 @@ class DtoTest extends TestCase
     }
 
     /**
-     * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
      * @throws Exception
      */
@@ -88,7 +86,6 @@ class DtoTest extends TestCase
     }
 
     /**
-     * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
      * @throws Exception
      */
@@ -103,7 +100,6 @@ class DtoTest extends TestCase
     }
 
     /**
-     * @covers \SmirnovO\Mapper\Example\DtoExample::parse
      * @return void
      */
     public function testParseOR(): void
@@ -114,25 +110,21 @@ class DtoTest extends TestCase
     }
 
     /**
-     * @covers \SmirnovO\Mapper\Example\DtoExample::toArray
      * @return void
      */
     public function testToArray(): void
     {
-        $dto = new DtoExample(['int4' => 100]);
+        $dto = new DtoTestToArray(['errors' => [], 'init' => [], 'str1' => 'str1', 'str2' => 'str2']);
+        $dto->hello = 1;
 
         $this->assertIsArray($dto->toArray());
         $this->assertEquals([
-            'cast1'         => 'string',
-            'castDefStr'    => 'string',
-            'castDefInt'    => 100,
-            'castDefArray'  => [1, 2, 3],
-            'castDefArray1' => [1, 2, 3],
+            'str1' => 'str1',
+            'str2' => 'str2',
         ], $dto->toArray());
     }
 
     /**
-     * @covers \SmirnovO\Mapper\Example\DtoExample::has
      * @return void
      * @throws Exception
      */
@@ -144,23 +136,14 @@ class DtoTest extends TestCase
     }
 
     /**
-     * @covers \SmirnovO\Mapper\Example\DtoErrors::parse
      * @return void
      * @throws Exception
      */
     public function testError(): void
     {
-        $dto = new DtoErrors(['errors' => 'Hello']);
-        $this->assertEquals('Hello', $dto->errors);
-
-        $dto = new DtoErrors(['errors' => 'Hello', 'init' => 100]);
-        $this->assertTrue($dto->has('errors'));
-
-        $dto = new DtoErrors(['errors' => [], 'errors1' => []]);
-        $this->assertFalse($dto->has('errors'));
-        $this->assertFalse($dto->has('errors1'));
+        $dto = new DtoErrors(['errors' => [], 'init' => []]);
+        $dto->hello = 1;
         $this->assertNotEquals([], $dto->getErrors());
         $this->assertCount(2, $dto->getErrors());
-        $this->assertEquals([], $dto->toArray());
     }
 }

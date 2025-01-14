@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SmirnovO\Mapper;
 
 use ReflectionClass;
+use ReflectionProperty;
 use SmirnovO\Mapper\Attribute\CastDefault;
 use SmirnovO\Mapper\Attribute\CastMethod;
 use SmirnovO\Mapper\Attribute\ElementName;
@@ -49,9 +50,19 @@ abstract class Dto implements DtoContract
      */
     public function toArray(): array
     {
-        unset($this->{$this->getHash()});
+        $ref = new ReflectionClass($this);
+        $properties = $ref->getProperties(ReflectionProperty::IS_PUBLIC);
+        $array = [];
 
-        return (array)$this;
+        foreach ($properties as $property) {
+            $name = $property->getName();
+
+            try {
+                $array[$name] = $property->getValue($this);
+            }catch (Throwable){}
+        }
+
+        return $array;
     }
 
     /**
@@ -100,6 +111,9 @@ abstract class Dto implements DtoContract
                 try {
                     $prop->setValue($this, $value);
                 } catch (Throwable $exception) {
+                    if(! isset($this->{$this->getHash()})) {
+                        $this->{$this->getHash()} = [];
+                    }
                     $this->{$this->getHash()}[$prop->getName()] = $exception->getMessage();
                 }
             }
@@ -133,11 +147,42 @@ abstract class Dto implements DtoContract
     }
 
     /**
-     * @return array<string, string>
+     * @return array
      */
     public function getErrors(): array
     {
         return $this->{$this->getHash()};
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function __get(string $key): mixed
+    {
+        return $this->$key;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function __set(string $key, mixed $value): void
+    {
+        $this->$key = $value;
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function __isset(string $key): bool
+    {
+        return isset($this->$key);
     }
 
     /**
