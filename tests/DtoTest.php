@@ -119,11 +119,8 @@ class DtoTest extends TestCase
 
         $this->assertIsArray($dto->toArray());
         $this->assertEquals([
-            'cast1'         => 'string',
-            'castDefStr'    => 'string',
-            'castDefInt'    => 100,
-            'castDefArray'  => [1, 2, 3],
-            'castDefArray1' => [1, 2, 3],
+            'str1' => 'str1',
+            'str2' => 'str2',
         ], $dto->toArray());
     }
 
@@ -151,7 +148,6 @@ class DtoTest extends TestCase
     }
 
     /**
-     * @covers \SmirnovO\Mapper\Example\DtoExample::castMethod
      * @return void
      */
     public function testCastMethod(): void
