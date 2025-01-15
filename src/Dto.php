@@ -15,6 +15,7 @@ use Throwable;
 
 use function array_reduce;
 use function explode;
+use function is_string;
 use function md5;
 use function method_exists;
 use function spl_object_id;
@@ -87,43 +88,63 @@ abstract class Dto implements DtoContract
         foreach ($props as $prop) {
             $attrs = $prop->getAttributes();
             $value = null;
+            $noCastSet = true;
 
             foreach ($attrs as $attribute) {
                 if ($attribute->getName() === ElementName::class) {
                     $value = $this->getDataByKey($attribute->getArguments(), $data);
                 }
 
-                if ($attribute->getName() === CastDefault::class) {
+                if ($noCastSet && $attribute->getName() === CastDefault::class) {
                     $value = $value ?? $attribute->getArguments()[0];
+                    $noCastSet = false;
                 }
 
-                if (!isset($value) && ($attribute->getName() === CastMethodDefault::class)) {
+                if ($noCastSet && !isset($value) && ($attribute->getName() === CastMethodDefault::class)) {
                     $cast = $attribute->getArguments()[0];
 
-                    if (method_exists($this, $cast)) {
+                    if (is_string($cast) && method_exists($this, $cast)) {
                         $value = $this->{$cast}();
+                        $noCastSet = false;
                     }
                 }
 
-                if (isset($value) && $attribute->getName() === CastMethod::class) {
+                if ($noCastSet && isset($value) && $attribute->getName() === CastMethod::class) {
                     $cast = $attribute->getArguments()[0];
 
-                    if (method_exists($this, $cast)) {
+                    if (is_string($cast) && method_exists($this, $cast)) {
                         $value = $this->{$cast}($value);
+                        $noCastSet = false;
                     }
                 }
+            }
+
+            if (! $noCastSet) {
+                $this->setValue($prop, $value);
+                continue;
             }
 
             if (isset($value)) {
-                try {
-                    $prop->setValue($this, $value);
-                } catch (Throwable $exception) {
-                    if(! isset($this->{$this->getHash()})) {
-                        $this->{$this->getHash()} = [];
-                    }
-                    $this->{$this->getHash()}[$prop->getName()] = $exception->getMessage();
-                }
+                $this->setValue($prop, $value);
             }
+        }
+    }
+
+    /**
+     * @param ReflectionProperty $prop
+     * @param mixed $value
+     *
+     * @return void
+     */
+    private function setValue(ReflectionProperty $prop, mixed $value): void
+    {
+        try {
+            $prop->setValue($this, $value);
+        } catch (Throwable $exception) {
+            if(! isset($this->{$this->getHash()})) {
+                $this->{$this->getHash()} = [];
+            }
+            $this->{$this->getHash()}[$prop->getName()] = $exception->getMessage();
         }
     }
 

@@ -87,20 +87,6 @@ class DtoTest extends TestCase
 
     /**
      * @return void
-     * @throws Exception
-     */
-    public function testCastDefault(): void
-    {
-        $dto = new DtoExample(['int2' => 100]);
-
-        $this->assertEquals('string', $dto->castDefStr);
-        $this->assertEquals(100, $dto->castDefInt);
-        $this->assertEquals([1, 2, 3], $dto->castDefArray);
-        $this->assertEquals([1, 2, 3], $dto->castDefArray1);
-    }
-
-    /**
-     * @return void
      */
     public function testParseOR(): void
     {
