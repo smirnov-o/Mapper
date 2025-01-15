@@ -6,6 +6,7 @@ namespace SmirnovO\Mapper;
 
 use ReflectionClass;
 use ReflectionProperty;
+use SmirnovO\Mapper\Attribute\CanBeNull;
 use SmirnovO\Mapper\Attribute\CastDefault;
 use SmirnovO\Mapper\Attribute\CastMethod;
 use SmirnovO\Mapper\Attribute\CastMethodDefault;
@@ -116,6 +117,11 @@ abstract class Dto implements DtoContract
                         $value = $this->{$cast}($value);
                         $noCastSet = false;
                     }
+                }
+
+                if ($noCastSet && $attribute->getName() === CanBeNull::class) {
+                    $value      = $value ?? null;
+                    $noCastSet = false;
                 }
             }
 

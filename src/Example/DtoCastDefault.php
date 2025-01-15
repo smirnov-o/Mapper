@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace SmirnovO\Mapper\Example;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use SmirnovO\Mapper\Attribute\CastDefault;
 use SmirnovO\Mapper\Attribute\CastMethod;
 use SmirnovO\Mapper\Attribute\ElementName;

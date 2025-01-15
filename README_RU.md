@@ -4,27 +4,39 @@
 ![Packagist License (custom server)](https://img.shields.io/packagist/l/smirnov-o/Mapper)
 
 ### Методы маппера
+
 Если необходимо, чтобы конструктор класс был пустой, то нужно использовать этот метод.<br>
+
 ```php
 public function init(array $data): static
 ```
+
 Возвращает маппинг полей. Обязательно.<br>
+
 ```php
 public function getMap(): array;
 ```
+
 Возвращает массив готовых данных. В случае со свойствами класса, будет пустой.<br>
+
 ```php
 public function getData(): array;
 ```
+
 Возвращает список методов применяемых для изменения поля.<br>
+
 ```php
 public function getCast(): array;
 ```
+
 В процессе маппинга не было совпадений не найдено.<br>
+
 ```php
 public function isNotEmpty(): bool;
 ```
+
 #### Install
+
 ```
 composer require smirnov-o/mapper
 ```
@@ -65,7 +77,9 @@ $class->getData() === [
     'bar'     => 4
 ];
 ```
+
 #### Set property class
+
 ```php
 class Map extends Mapper implements MapperObject
 {
@@ -103,7 +117,9 @@ $class->foo     === 3;
 
 $class->getData() === [];
 ```
+
 #### Use cast
+
 ```php
 class Map extends Mapper implements MapperObject
 {
@@ -155,7 +171,9 @@ $class->myArray   === 'changeValue';
 $class->foo       === 3;
 $class->getData() === [];
 ````
+
 #### Static Call
+
 ```php
 $array = [
     'a' => '1', 
@@ -175,7 +193,9 @@ $object = MapperStatic::getObject($array, $maps);
 $object->a === 1;
 $object->b === 1000;
 ```
+
 #### Select data
+
 Возможность выбора данных из нескольких полей.<br>
 Поля перечисляются через `||`. После нахождения первого, поиск прекращается.
 
@@ -190,12 +210,18 @@ $object->b === 1000;
         ];
     }
 ```
+
 ### Dto
-Порядок работы методов
+
+Атрибуты
+
 1. ElementName - нахождение значения по имени
 2. CastDefault - если значения нет, то устанавливается указанное в CastDefault
 3. CastMethodDefault - если значения нет, то значение инициализируется методом из CastMethodDefault
 4. CastMethod - изменяет значение методом из CastMethod
+5. CanBeNull - если элемент массива пришёл со значением NULL, допускается его инициализация NULLом (! важно указывать в
+   свойстве возможность null)
+
 ```php
 final class DtoExample extends Dto {
     /**
@@ -227,6 +253,12 @@ final class DtoExample extends Dto {
      */
     #[ElementName('castMethod'), CastMethodDefault('castMethod')]
     public string $castMethod;
+    
+    /**
+     * @var string|null
+     */
+    #[ElementName('canNull'), CanBeNull()]
+    public ?string $canNull;
     
     /**
      * @param int $val
@@ -270,10 +302,14 @@ $dto->taArrya() = [
         ];
 $dto->has('dto') === false;
 ```
+
 ### Методы Dto
+
 #### Метод getErrors
+
 Возвращает ошибки парсинга.
 Пример:
+
 ```php
 [
     errors => 'Cannot assign array to property SmirnovO\Mapper\Example\DtoErrors::$errors of type string',
