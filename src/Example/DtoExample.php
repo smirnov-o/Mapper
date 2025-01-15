@@ -47,36 +47,6 @@ final class DtoExample extends Dto
     /**
      * @var string
      */
-    #[ElementName('int4'), CastMethod('cast1')]
-    public string $cast1;
-
-    /**
-     * @var string
-     */
-    #[ElementName('hello'), CastDefault('string')]
-    public string $castDefStr;
-
-    /**
-     * @var int
-     */
-    #[ElementName('hello'), CastDefault(100)]
-    public int $castDefInt;
-
-    /**
-     * @var array<int>
-     */
-    #[ElementName('hello'), CastDefault([1, 2, 3])]
-    public array $castDefArray;
-
-    /**
-     * @var array<int>
-     */
-    #[CastDefault([1, 2, 3])]
-    public array $castDefArray1;
-
-    /**
-     * @var string
-     */
     #[ElementName('bar||a.b')]
     public string $foo;
 

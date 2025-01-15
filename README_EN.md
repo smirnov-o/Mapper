@@ -184,16 +184,19 @@ Fields are listed with `||`. After finding the first one, the search stops.
             'myKey'   => 'foo',
             'myArray' => 'abc',
             'foo'     => 'abc.foo||abc.foo||abc.foo',
-            'bar'     => 'abc.bar||abc.bar||abc.bar'
+            'bar'     => 'abc.bar||abc.bar||abc.bar',
         ];
     }
 ```
 ### Dto
-Methods work order
-1. ElementName - find value by name
-2. CastDefault - if there is no value, then the value specified in CastDefault is set
-3. CastMethodDefault - if there is no value, then the value is initialized by the method from CastMethodDefault
-4. CastMethod - changes the value by the method from CastMethod
+Attributes
+
+1. Element Name - finding the value by name
+2. Cast Default - if there is no value, then the Default specified in the Case is set.
+3. CastMethodDefault - if there is no value, then the value is initialized using the CastMethodDefault method.
+4. CastMethod - changes the value of the method from CastMethod
+5. CanBeNull - if an array element has arrived with a NULL value, it can be initialized with NULL (! it is important to specify
+   the null option in the property)
 ```php
 final class DtoExample extends Dto {
     /**
@@ -225,6 +228,12 @@ final class DtoExample extends Dto {
      */
     #[ElementName('castMethod'), CastMethodDefault('castMethod')]
     public string $castMethod;
+    
+    /**
+     * @var string|null
+     */
+    #[ElementName('canNull'), CanBeNull()]
+    public ?string $canNull;
     
     /**
      * @param int $val
