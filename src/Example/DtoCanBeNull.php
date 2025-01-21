@@ -27,7 +27,7 @@ final class DtoCanBeNull extends Dto {
      * @var float|null
      */
     #[ElementName('c')]
-    public ?float $c = null;
+    public ?float $c;
 
     /**
      * @var float

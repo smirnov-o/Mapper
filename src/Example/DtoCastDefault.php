@@ -31,12 +31,6 @@ final class DtoCastDefault extends Dto {
     public int $castDefInt;
 
     /**
-     * @var int|null
-     */
-    #[ElementName('null'), CastDefault(null)]
-    public ?int $castDefNull;
-
-    /**
      * @var bool
      */
     #[ElementName('false'), CastDefault(false)]

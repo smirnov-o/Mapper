@@ -22,7 +22,6 @@ class DtoCastDefaultTest extends TestCase {
         $this->assertEquals(100, $dto->castDefInt);
         $this->assertEquals([1, 2, 3], $dto->castDefArray);
         $this->assertEquals([1, 2, 3], $dto->castDefArray1);
-        $this->assertEquals(null, $dto->castDefNull);
         $this->assertFalse($dto->castDefFalse);
         $this->assertTrue($dto->castDefTrue);
     }
