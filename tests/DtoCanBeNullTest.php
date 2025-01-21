@@ -24,13 +24,15 @@ class DtoCanBeNullTest extends TestCase
         $this->assertNotTrue(isset($dto->d));
         $this->assertEquals(1, $dto->a);
         $this->assertEquals(null, $dto->b);
-        $this->assertEquals(null, $dto->c);
-        $this->assertEquals(['a' => 1, 'b' => null, 'c' => null], $dto->toArray());
+        $this->assertEquals(['a' => 1, 'b' => null], $dto->toArray());
 
 
         $dto = new DtoCanBeNull(['a' => null, 'b' => 1]);
 
         $this->assertNotTrue(isset($dto->a));
         $this->assertEquals(1, $dto->b);
+
+        $dto = new DtoCanBeNull([]);
+        self::assertEquals([],$dto->toArray());
     }
 }

@@ -14,6 +14,7 @@ use SmirnovO\Mapper\Attribute\ElementName;
 use SmirnovO\Mapper\Contracts\DtoContract;
 use Throwable;
 
+use function array_key_exists;
 use function array_reduce;
 use function explode;
 use function is_string;
@@ -125,7 +126,7 @@ abstract class Dto implements DtoContract
                 }
             }
 
-            if (! $noCastSet) {
+            if (array_key_exists($prop->name, $data) && ! $noCastSet) {
                 $this->setValue($prop, $value);
                 continue;
             }
