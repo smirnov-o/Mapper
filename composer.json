@@ -1,6 +1,6 @@
 {
   "name": "smirnov-o/mapper",
-  "version": "1.5.3",
+  "version": "2.0.0",
   "description": "PHP Mapping and ReadOnly Dto with Attributes",
   "license": "MIT",
   "keywords": [
