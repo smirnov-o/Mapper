@@ -19,6 +19,6 @@ final class DtoCanBeNull extends Dto
     #[ElementName('c')]
     public ?float $c;
 
-    #[ElementName('d'), CanBeNull()]
+    #[ElementName('d')]
     public float $d;
 }

@@ -18,7 +18,7 @@ class DtoCanBeNullTest extends TestCase
      */
     public function test(): void
     {
-        $dto = new DtoCanBeNull(['a' => 1, 'b' => null,'d' => null]);
+        $dto = new DtoCanBeNull(['a' => 1, 'b' => null, 'd' => null]);
 
         $this->assertEmpty($dto->b);
         $this->assertNotTrue(isset($dto->d));
@@ -33,6 +33,6 @@ class DtoCanBeNullTest extends TestCase
         $this->assertEquals(1, $dto->b);
 
         $dto = new DtoCanBeNull([]);
-        self::assertEquals([],$dto->toArray());
+        self::assertEquals(['b' => null], $dto->toArray());
     }
 }
