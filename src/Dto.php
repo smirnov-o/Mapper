@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SmirnovO\Mapper;
 
 use ReflectionClass;
+use ReflectionException;
 use ReflectionProperty;
 use SmirnovO\Mapper\Attribute\CanBeNull;
 use SmirnovO\Mapper\Attribute\CastDefault;
@@ -40,6 +41,7 @@ abstract class Dto implements DtoContract
 
     /**
      * @param array<string, mixed> $data
+     * @throws ReflectionException
      */
     public function __construct(array $data = [])
     {
@@ -50,6 +52,7 @@ abstract class Dto implements DtoContract
      * @param array<string, mixed> $data
      *
      * @return $this
+     * @throws ReflectionException
      */
     public function init(array $data): static
     {
@@ -60,6 +63,7 @@ abstract class Dto implements DtoContract
 
     /**
      * @return array<string, mixed>
+     * @throws ReflectionException
      */
     public function toArray(): array
     {
@@ -92,6 +96,7 @@ abstract class Dto implements DtoContract
      * @param array<string, mixed> $data
      *
      * @return void
+     * @throws ReflectionException
      */
     private function parse(array $data): void
     {
@@ -165,6 +170,7 @@ abstract class Dto implements DtoContract
     /**
      * @param string $class
      * @return array{properties: list<array{property: ReflectionProperty, elementKey: string|null, castDefault: mixed, castMethodDefault: string|null, castMethod: string|null, canBeNull: bool}>, publicProperties: array<string, ReflectionProperty>}
+     * @throws ReflectionException
      */
     private static function getReflectionCache(string $class): array
     {
