@@ -20,10 +20,14 @@ Returns a list of methods used to change the field.
 ```php
 public function getCast(): array;
 ```
-No matches were found during the mapping process.
+Returns `true` if at least one field was set during mapping (value is not `null`). Otherwise `false`.
 ```php
 public function isNotEmpty(): bool;
 ```
+**Key behavior in getMap():** you can specify multiple keys with `||` (e.g. `'foo' => 'a||b.c||d'`). The **first non-empty** value is used: first `a`, then `b.c`, then `d`.
+
+**MapperStatic / anonymous class:** if a class implementing `MapperObject` returns an empty array from `getMap()`, the map passed to the constructor (`$map`) is used instead.
+
 #### Install
 ```
 composer require smirnov-o/mapper
@@ -282,7 +286,7 @@ Returns parsing errors.
 Example:
 ```php
 [
-    errors => 'Cannot assign array to property SmirnovO\Mapper\Example\DtoErrors::$errors of type string',
-    errors1 => 'Cannot assign array to property SmirnovO\Mapper\Example\DtoErrors::$errors1 of type string'
+    errors => 'Cannot assign array to property ...\DtoErrors::$errors of type string',
+    errors1 => 'Cannot assign array to property ...\DtoErrors::$errors1 of type string'
 ]
 ```

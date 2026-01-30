@@ -9,7 +9,7 @@ use Attribute;
 /**
  * Class CastDefault
  */
-#[Attribute]
+#[Attribute(Attribute::TARGET_PROPERTY)]
 class CastDefault
 {
     /**

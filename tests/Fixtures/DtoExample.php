@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SmirnovO\Mapper\Example;
+namespace SmirnovO\Mapper\Tests\Fixtures;
 
 use SmirnovO\Mapper\Attribute\CastDefault;
 use SmirnovO\Mapper\Attribute\CastMethod;
@@ -11,7 +11,7 @@ use SmirnovO\Mapper\Attribute\ElementName;
 use SmirnovO\Mapper\Dto;
 
 /**
- * Class DtoExample01
+ * Class DtoExample
  */
 final class DtoExample extends Dto
 {
@@ -68,37 +68,21 @@ final class DtoExample extends Dto
     #[ElementName('castMethod'), CastMethodDefault('castMethod')]
     public string $castMethod;
 
-    /**
-     * @param bool $val
-     *
-     * @return bool
-     */
     public function castBool(bool $val): bool
     {
         return !$val;
     }
 
-    /**
-     * @param int $val
-     *
-     * @return int
-     */
     public function cast(int $val): int
     {
         return $val + 100;
     }
 
-    /**
-     * @return string
-     */
     public function cast1(): string
     {
         return 'string';
     }
 
-    /**
-     * @return string
-     */
     public function castMethod(): string
     {
         return 'vasa';

@@ -9,7 +9,7 @@ use Attribute;
 /**
  * Class CastMethod
  */
-#[Attribute]
+#[Attribute(Attribute::TARGET_PROPERTY)]
 class CastMethod
 {
     /**

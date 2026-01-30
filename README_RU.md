@@ -29,11 +29,15 @@ public function getData(): array;
 public function getCast(): array;
 ```
 
-В процессе маппинга не было совпадений не найдено.<br>
+Возвращает `true`, если при маппинге было установлено хотя бы одно поле (значение не `null`). Иначе `false`.<br>
 
 ```php
 public function isNotEmpty(): bool;
 ```
+
+**Поведение ключей в getMap():** в значении карты можно указать несколько ключей через `||` (например, `'foo' => 'a||b.c||d'`). Берётся **первый непустой** результат по пути в массиве: сначала `a`, затем `b.c`, затем `d`.
+
+**MapperStatic / анонимный класс:** если у класса, реализующего `MapperObject`, метод `getMap()` возвращает пустой массив, используется карта, переданная в конструктор (`$map`).
 
 #### Install
 
@@ -312,7 +316,7 @@ $dto->has('dto') === false;
 
 ```php
 [
-    errors => 'Cannot assign array to property SmirnovO\Mapper\Example\DtoErrors::$errors of type string',
-    errors1 => 'Cannot assign array to property SmirnovO\Mapper\Example\DtoErrors::$errors1 of type string'
+    errors => 'Cannot assign array to property ...\DtoErrors::$errors of type string',
+    errors1 => 'Cannot assign array to property ...\DtoErrors::$errors1 of type string'
 ]
 ```

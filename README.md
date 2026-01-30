@@ -9,7 +9,7 @@
 * Dto с использованием атрибутов (ElementName, CastMethod, CastDefault, CastMethodDefault). 
 * В процессе обработки массива можно изменять данные своими методами.
 
-Пример Dto в [Example](src%2FExample).
+Примеры Dto в [tests/Fixtures](tests/Fixtures).
 
 [Документация](README_RU.md)
 
@@ -19,7 +19,7 @@
 * Dto using attributes (ElementName, CastMethod, Cast Default).
 * During the processing of the array, you can change the data using your own methods.
 
-An example of a Dto in [Example](src%2FExample).
+Example DTOs in [tests/Fixtures](tests/Fixtures).
 
 [Documentation](README_EN.md)
 

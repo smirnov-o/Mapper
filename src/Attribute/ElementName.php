@@ -7,7 +7,7 @@ use Attribute;
 /**
  * Class ElementName
  */
-#[Attribute]
+#[Attribute(Attribute::TARGET_PROPERTY)]
 class ElementName
 {
     /**

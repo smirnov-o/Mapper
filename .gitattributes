@@ -1,3 +1,4 @@
 .attributes   export-ignore
 .gitignore       export-ignore
 /tests           export-ignore
+/src/Example     export-ignore

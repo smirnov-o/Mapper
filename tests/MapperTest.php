@@ -95,6 +95,11 @@ class MapperTest extends TestCase
                     'bba' => 'b.b.a',
                 ];
             }
+
+            public function isMapperObject(): bool
+            {
+                return true;
+            }
         };
 
         $this->assertEquals(1, $class->aa);
@@ -133,6 +138,11 @@ class MapperTest extends TestCase
                     'aa'  => 'myCastOne',
                     'bba' => 'myCastTwo',
                 ];
+            }
+
+            public function isMapperObject(): bool
+            {
+                return true;
             }
 
             public function myCastOne(mixed $data)
@@ -180,6 +190,11 @@ class MapperTest extends TestCase
                     'e' => 'b'
                 ];
             }
+
+            public function isMapperObject(): bool
+            {
+                return true;
+            }
         };
 
         $this->assertEquals(1, $class->a);
@@ -212,6 +227,11 @@ class MapperTest extends TestCase
                     'b' => 'b',
                     'c' => 'c',
                 ];
+            }
+
+            public function isMapperObject(): bool
+            {
+                return true;
             }
         };
         $class->init($array);
@@ -265,6 +285,11 @@ class MapperTest extends TestCase
                     'y' => 'ddd.0.name||dd.0.name'
                 ];
             }
+
+            public function isMapperObject(): bool
+            {
+                return true;
+            }
         };
 
         $this->assertEquals(1, $class->f);
@@ -297,6 +322,11 @@ class MapperTest extends TestCase
                     'y' => 'ddd.0.name.gg||dd.0.name.fg'
                 ];
             }
+
+            public function isMapperObject(): bool
+            {
+                return true;
+            }
         };
 
         $this->assertFalse($class->isNotEmpty());
@@ -309,6 +339,11 @@ class MapperTest extends TestCase
                 return [
                     'f' => 'a',
                 ];
+            }
+
+            public function isMapperObject(): bool
+            {
+                return true;
             }
         };
 
@@ -338,5 +373,88 @@ class MapperTest extends TestCase
 
         $this->assertEquals([], $class->getData());
         $this->assertFalse($class->isNotEmpty());
+    }
+
+    /**
+     * @covers \SmirnovO\Mapper\Mapper::parse
+     * @covers \SmirnovO\Mapper\Internal\ValueResolver::resolve
+     */
+    public function testFalsyValuesAreMapped(): void
+    {
+        $data = [
+            'zero' => 0,
+            'false' => false,
+            'empty' => '',
+        ];
+
+        $class = new class ($data) extends Mapper {
+            public function getMap(): array
+            {
+                return [
+                    'zero' => 'zero',
+                    'false' => 'false',
+                    'empty' => 'empty',
+                ];
+            }
+        };
+
+        $result = $class->getData();
+        $this->assertSame(0, $result['zero']);
+        $this->assertSame(false, $result['false']);
+        $this->assertSame('', $result['empty']);
+        $this->assertTrue($class->isNotEmpty());
+    }
+
+    /**
+     * @covers \SmirnovO\Mapper\Internal\ValueResolver::resolve
+     */
+    public function testGetDataByKeyWhenIntermediateIsNotArray(): void
+    {
+        $data = [
+            'a' => [
+                'b' => 5,
+            ],
+        ];
+
+        $class = new class ($data) extends Mapper {
+            public function getMap(): array
+            {
+                return [
+                    'path' => 'a.b.c',
+                ];
+            }
+        };
+
+        $result = $class->getData();
+        $this->assertArrayNotHasKey('path', $result);
+        $this->assertFalse($class->isNotEmpty());
+    }
+
+    /**
+     * @covers \SmirnovO\Mapper\Mapper::strict
+     * @covers \SmirnovO\Mapper\Internal\PropertyWriter::write
+     */
+    public function testStrictModeSkipsIncompatibleType(): void
+    {
+        $data = ['a' => 'not_an_int'];
+
+        $class = new class ([], ['a' => 'a']) extends Mapper implements MapperObject {
+            public int $a = 0;
+
+            public function getMap(): array
+            {
+                return ['a' => 'a'];
+            }
+
+            public function isMapperObject(): bool
+            {
+                return true;
+            }
+        };
+        $class->strict = true;
+        $class->init($data);
+
+        $this->assertSame(0, $class->a);
+        $this->assertEquals(['a' => 'not_an_int'], $class->getData());
     }
 }

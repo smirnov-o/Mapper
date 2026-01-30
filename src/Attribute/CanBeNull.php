@@ -8,7 +8,7 @@ use Attribute;
 /**
  * class CanBeNull
  */
-#[Attribute]
+#[Attribute(Attribute::TARGET_PROPERTY)]
 class CanBeNull {
 
 }

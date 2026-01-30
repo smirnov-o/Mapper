@@ -19,4 +19,15 @@ interface DtoContract
      * @return array<string, mixed>
      */
     public function toArray(): array;
+
+    /**
+     * @param string $key
+     * @return bool
+     */
+    public function has(string $key): bool;
+
+    /**
+     * @return array<string, string>
+     */
+    public function getErrors(): array;
 }

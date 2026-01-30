@@ -1,37 +1,24 @@
 <?php
+
 declare(strict_types=1);
 
-namespace SmirnovO\Mapper\Example;
+namespace SmirnovO\Mapper\Tests\Fixtures;
 
 use SmirnovO\Mapper\Attribute\CanBeNull;
 use SmirnovO\Mapper\Attribute\ElementName;
 use SmirnovO\Mapper\Dto;
 
-/**
- * class DtoCanBeNull
- */
-final class DtoCanBeNull extends Dto {
-    /**
-     * @var float
-     */
+final class DtoCanBeNull extends Dto
+{
     #[ElementName('a')]
     public float $a;
 
-    /**
-     * @var float|null
-     */
     #[ElementName('b'), CanBeNull()]
     public ?float $b;
 
-    /**
-     * @var float|null
-     */
     #[ElementName('c')]
     public ?float $c;
 
-    /**
-     * @var float
-     */
     #[ElementName('d'), CanBeNull()]
     public float $d;
 }

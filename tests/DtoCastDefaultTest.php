@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use SmirnovO\Mapper\Example\DtoCastDefault;
+use SmirnovO\Mapper\Tests\Fixtures\DtoCastDefault;
 
 /**
  *  class DtoCastDefaultTest
  */
-#[CoversClass(DtoCastDefault::class)]
+#[CoversClass(\SmirnovO\Mapper\Tests\Fixtures\DtoCastDefault::class)]
 class DtoCastDefaultTest extends TestCase {
     /**
      * @return void

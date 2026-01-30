@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace SmirnovO\Mapper;
 
-use ReflectionClass;
-use ReflectionException;
 use SmirnovO\Mapper\Contracts\MapperContract;
 use SmirnovO\Mapper\Contracts\MapperObject;
+use SmirnovO\Mapper\Internal\PropertyWriter;
+use SmirnovO\Mapper\Internal\ValueResolver;
 
-use function array_reduce;
-use function explode;
-use function in_array;
 use function is_string;
 use function method_exists;
-use function settype;
 
 /**
  * Class Mapper
@@ -22,9 +18,11 @@ use function settype;
 abstract class Mapper implements MapperContract
 {
     /**
-     * @var array<string>
+     * When true, property types are checked before casting; incompatible values are skipped.
+     *
+     * @var bool
      */
-    public const TYPE = ['boolean', 'bool', 'integer', 'int', 'float', 'double', 'string', 'array', 'object', 'null'];
+    protected bool $strict = false;
 
     /**
      * @var array<string, mixed>
@@ -37,13 +35,13 @@ abstract class Mapper implements MapperContract
     private mixed $empty = null;
 
     /**
-     * @var array<string>
+     * @var array<string, string>
      */
     protected array $map;
 
     /**
      * @param array<string, mixed> $data
-     * @param array<string> $map
+     * @param array<string, string> $map
      */
     public function __construct(array $data = [], array $map = [])
     {
@@ -95,90 +93,32 @@ abstract class Mapper implements MapperContract
      */
     private function parse(array $data): void
     {
-        $value = null;
-        $prop = false;
         $maps = $this->getMap() !== [] ? $this->getMap() : $this->map;
 
-        foreach ($maps as $map => $key) {
-            if ($key && is_string($key)) {
-                $value = $this->getDataByKey($key, $data);
+        foreach ($maps as $mapKey => $sourceKey) {
+            $value = null;
+
+            if ($sourceKey !== '' && is_string($sourceKey)) {
+                $value = ValueResolver::resolve($sourceKey, $data);
             }
 
-            $method = $this->getCast()[$map] ?? null;
-
-            if ($method && method_exists($this, $method)) {
+            $method = $this->getCast()[$mapKey] ?? null;
+            if ($method !== null && method_exists($this, $method)) {
                 $value = $this->{$method}($value);
             }
 
-            if ($value) {
+            if ($value !== null) {
                 $this->empty = $value;
 
+                $written = false;
                 if (is_subclass_of($this, MapperObject::class)) {
-                    $prop = $this->setVariable($map, $value);
+                    $written = PropertyWriter::write($this, $mapKey, $value, $this->strict);
                 }
 
-                if (!$prop) {
-                    $this->data[$map] = $value;
+                if (!$written) {
+                    $this->data[$mapKey] = $value;
                 }
             }
         }
-    }
-
-    /**
-     * @param string $key
-     * @param mixed $value
-     * @return bool
-     */
-    private function setVariable(string $key, mixed $value): bool
-    {
-        $ref = new ReflectionClass($this);
-        $prop = null;
-        $result = true;
-
-        try {
-            $prop = $ref->getProperty($key);
-        } catch (ReflectionException) {
-            $result = false;
-        }
-
-        if ($prop) {
-            // @phpstan-ignore-next-line
-            $type = $prop->getType()?->getName();
-
-            if ($type && in_array($type, self::TYPE, true)) {
-                $result = settype($value, $type);
-            }
-
-            if ($result) {
-                $this->{$key} = $value;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param string $key
-     * @param array<string, mixed> $data
-     * @return mixed
-     */
-    private function getDataByKey(string $key, array $data): mixed
-    {
-        $or = explode('||', $key);
-        $value = null;
-
-        foreach ($or as $item) {
-            $array = explode('.', $item);
-
-            $value = array_reduce($array, static function ($val, $key) {
-                return $val[$key] ?? null;
-            }, $data);
-
-            if ($value) {
-                break;
-            }
-        }
-
-        return $value;
     }
 }

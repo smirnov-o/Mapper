@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use SmirnovO\Mapper\Example\DtoCanBeNull;
+use SmirnovO\Mapper\Tests\Fixtures\DtoCanBeNull;
 
 /**
  *  class DtoCanBeNullTest
  */
-#[CoversClass(DtoCanBeNull::class)]
+#[CoversClass(\SmirnovO\Mapper\Tests\Fixtures\DtoCanBeNull::class)]
 class DtoCanBeNullTest extends TestCase
 {
     /**

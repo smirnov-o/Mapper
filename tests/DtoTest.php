@@ -5,9 +5,10 @@ declare(strict_types=1);
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SmirnovO\Mapper\Dto;
-use SmirnovO\Mapper\Example\DtoErrors;
-use SmirnovO\Mapper\Example\DtoExample;
-use SmirnovO\Mapper\Example\DtoTestToArray;
+use SmirnovO\Mapper\Tests\Fixtures\DtoCastDefault;
+use SmirnovO\Mapper\Tests\Fixtures\DtoErrors;
+use SmirnovO\Mapper\Tests\Fixtures\DtoExample;
+use SmirnovO\Mapper\Tests\Fixtures\DtoTestToArray;
 
 /**
  * Class DtoTest
@@ -143,5 +144,25 @@ class DtoTest extends TestCase
 
         $dto = new DtoExample([]);
         $this->assertEquals('vasa', $dto->castMethod);
+    }
+
+    public function testGetErrorsEmptyBeforeAnyBinding(): void
+    {
+        $dto = new DtoExample([]);
+        $this->assertSame([], $dto->getErrors());
+    }
+
+    public function testGetErrorsAfterBindingError(): void
+    {
+        $dto = new DtoErrors(['errors' => [], 'init' => []]);
+        $this->assertNotEmpty($dto->getErrors());
+        $this->assertArrayHasKey('errors', $dto->getErrors());
+        $this->assertArrayHasKey('init', $dto->getErrors());
+    }
+
+    public function testResolveByPropertyNameWhenNoElementName(): void
+    {
+        $dto = new DtoCastDefault(['castDefArray1' => [4, 5, 6]]);
+        $this->assertEquals([4, 5, 6], $dto->castDefArray1);
     }
 }
