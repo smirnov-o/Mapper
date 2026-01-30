@@ -300,82 +300,6 @@ class MapperTest extends TestCase
     }
 
     /**
-     * @covers \SmirnovO\Mapper\Mapper::isNotEmpty
-     * @return void
-     */
-    public function testisEmpty(): void
-    {
-        $class = new class ($this->array) extends SmirnovO\Mapper\Mapper implements MapperObject {
-            public int    $f;
-            public int    $g;
-            public array  $c = [];
-            public bool   $h = false;
-            public string $y;
-
-            public function getMap(): array
-            {
-                return [
-                    'f' => 'a.dd',
-                    'c' => 'b.b.a.d||b.a.d',
-                    'g' => 'a.c.c.2||b.a.f',
-                    'h' => 'ddd.ff||dd.0.name.f',
-                    'y' => 'ddd.0.name.gg||dd.0.name.fg'
-                ];
-            }
-
-            public function isMapperObject(): bool
-            {
-                return true;
-            }
-        };
-
-        $this->assertFalse($class->isNotEmpty());
-
-        $class = new class ($this->array) extends SmirnovO\Mapper\Mapper implements MapperObject {
-            public int    $f;
-
-            public function getMap(): array
-            {
-                return [
-                    'f' => 'a',
-                ];
-            }
-
-            public function isMapperObject(): bool
-            {
-                return true;
-            }
-        };
-
-        $this->assertTrue($class->isNotEmpty());
-
-        $class = new class ($this->array) extends SmirnovO\Mapper\Mapper {
-            public function getMap(): array
-            {
-                return [
-                    'aa'  => 'a',
-                ];
-            }
-        };
-
-        $this->assertEquals(['aa'  => 1], $class->getData());
-        $this->assertTrue($class->isNotEmpty());
-
-
-        $class = new class ($this->array) extends SmirnovO\Mapper\Mapper {
-            public function getMap(): array
-            {
-                return [
-                    'aa'  => 'a.2.2',
-                ];
-            }
-        };
-
-        $this->assertEquals([], $class->getData());
-        $this->assertFalse($class->isNotEmpty());
-    }
-
-    /**
      * @covers \SmirnovO\Mapper\Mapper::parse
      * @covers \SmirnovO\Mapper\Internal\ValueResolver::resolve
      */
@@ -402,7 +326,6 @@ class MapperTest extends TestCase
         $this->assertSame(0, $result['zero']);
         $this->assertSame(false, $result['false']);
         $this->assertSame('', $result['empty']);
-        $this->assertTrue($class->isNotEmpty());
     }
 
     /**
@@ -427,7 +350,6 @@ class MapperTest extends TestCase
 
         $result = $class->getData();
         $this->assertArrayNotHasKey('path', $result);
-        $this->assertFalse($class->isNotEmpty());
     }
 
     /**

@@ -33,16 +33,17 @@ final class MapperStatic
      */
     public static function getObject(array $source, array $map): Mapper
     {
-        return new class ($source, $map) extends Mapper implements MapperObject {
+        $class = new class ($source, $map) extends Mapper implements MapperObject {
             public function getMap(): array
             {
                 return [];
             }
-
-            public function isMapperObject(): bool
-            {
-                return true;
-            }
         };
+
+        foreach ($class->getData() as $key => $item) {
+            $class->{$key} = $item;
+        }
+
+        return $class;
     }
 }

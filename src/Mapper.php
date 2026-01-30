@@ -30,11 +30,6 @@ abstract class Mapper implements MapperContract
     private array $data = [];
 
     /**
-     * @var mixed
-     */
-    private mixed $empty = null;
-
-    /**
      * @var array<string, string>
      */
     protected array $map;
@@ -80,14 +75,6 @@ abstract class Mapper implements MapperContract
     }
 
     /**
-     * @return bool
-     */
-    public function isNotEmpty(): bool
-    {
-        return (bool)$this->empty;
-    }
-
-    /**
      * @param array<string, mixed> $data
      * @return void
      */
@@ -108,8 +95,6 @@ abstract class Mapper implements MapperContract
             }
 
             if ($value !== null) {
-                $this->empty = $value;
-
                 $written = false;
                 if (is_subclass_of($this, MapperObject::class)) {
                     $written = PropertyWriter::write($this, $mapKey, $value, $this->strict);

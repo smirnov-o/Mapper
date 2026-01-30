@@ -29,9 +29,4 @@ interface MapperContract
      * @return array<string, string>
      */
     public function getCast(): array;
-
-    /**
-     * @return bool
-     */
-    public function isNotEmpty(): bool;
 }
