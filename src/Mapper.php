@@ -22,7 +22,7 @@ abstract class Mapper implements MapperContract
      *
      * @var bool
      */
-    protected bool $strict = false;
+    public bool $strict = false;
 
     /**
      * @var array<string, mixed>

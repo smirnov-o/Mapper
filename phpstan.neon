@@ -1,5 +1,7 @@
 parameters:
     paths:
         - src/
+    tips:
+        treatPhpDocTypesAsCertain: false
 
     level: 10

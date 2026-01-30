@@ -253,12 +253,12 @@ class MapperTest extends TestCase
         $maps = ['a' => 'a', 'b' => 'b'];
         $data = MapperStatic::getArray($array, $maps)->getData();
 
-        $this->assertEquals(1, $data['a']);
+        $this->assertEquals('1', $data['a']);
         $this->assertEquals(100, $data['b']);
 
         $data = MapperStatic::getObject($array, $maps);
 
-        $this->assertEquals(1, $data->a);
+        $this->assertEquals('1', $data->a);
         $this->assertEquals(100, $data->b);
     }
 

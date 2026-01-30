@@ -7,6 +7,7 @@ namespace SmirnovO\Mapper\Internal;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionNamedType;
+use ReflectionProperty;
 
 /**
  * Writes value to object property with optional type casting.
@@ -19,7 +20,7 @@ final class PropertyWriter
     private static array $classCache = [];
 
     /**
-     * @var array<string, array<string, \ReflectionProperty|null>>
+     * @var array<string, array<string, ReflectionProperty|null>>
      */
     private static array $propertyCache = [];
 
@@ -74,9 +75,9 @@ final class PropertyWriter
     /**
      * @param string $className
      * @param string $key
-     * @return \ReflectionProperty|null
+     * @return ReflectionProperty|null
      */
-    private static function getProperty(string $className, string $key): ?\ReflectionProperty
+    private static function getProperty(string $className, string $key): ?ReflectionProperty
     {
         if (isset(self::$propertyCache[$className][$key])) {
             return self::$propertyCache[$className][$key] ?: null;

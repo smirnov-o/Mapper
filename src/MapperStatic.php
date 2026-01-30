@@ -13,7 +13,7 @@ final class MapperStatic
 {
     /**
      * @param array<string, mixed> $source
-     * @param array<string> $map
+     * @param array<string, string> $map
      * @return Mapper
      */
     public static function getArray(array $source, array $map): Mapper
@@ -28,7 +28,7 @@ final class MapperStatic
 
     /**
      * @param array<string, mixed> $source
-     * @param array<string> $map
+     * @param array<string, string> $map
      * @return Mapper
      */
     public static function getObject(array $source, array $map): Mapper
