@@ -186,6 +186,7 @@ abstract class Dto implements DtoContract
             if ($prop->getDeclaringClass()->getName() === self::class && $prop->getName() === 'errors') {
                 continue;
             }
+
             $meta = [
                 'property' => $prop,
                 'elementKey' => null,

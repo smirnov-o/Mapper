@@ -9,6 +9,13 @@ use ReflectionException;
 use ReflectionNamedType;
 use ReflectionProperty;
 
+use function is_array;
+use function is_bool;
+use function is_int;
+use function is_numeric;
+use function is_object;
+use function is_string;
+
 /**
  * Writes value to object property with optional type casting.
  */
@@ -108,6 +115,11 @@ final class PropertyWriter
         return $prop;
     }
 
+    /**
+     * @param mixed $value
+     * @param string $typeName
+     * @return bool
+     */
     private static function isCompatibleType(mixed $value, string $typeName): bool
     {
         return match ($typeName) {
